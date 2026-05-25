@@ -1,35 +1,578 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>私中數學練習｜第7章 長式子的四則運算</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>私中數學練習｜第7章 長式子的四則運算｜20題</title>
 <style>
-:root{--bg:#fbf7f0;--paper:#fffdf8;--card:#fff;--ink:#2f3f3c;--muted:#75817d;--line:#eadfd2;--accent:#78a99a;--accent-dark:#426f64;--accent-soft:#edf6f2;--cream:#fff4d8;--blue:#e7f2f8;--rose:#f8e3df;--right:#4d8d62;--right-soft:#edf8ef;--wrong:#b86660;--wrong-soft:#fff0ee;--shadow:0 12px 28px rgba(67,81,76,.08)}
-*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;color:var(--ink);background:radial-gradient(circle at top left,#f8e0da 0,transparent 31%),radial-gradient(circle at top right,#dff0f7 0,transparent 30%),linear-gradient(180deg,#fbf7f0,#f8f1e7);line-height:1.65}.copyright{position:fixed;top:10px;right:14px;z-index:20;font-size:13px;color:#6f7b77;background:rgba(255,253,248,.84);border:1px solid rgba(234,223,210,.86);border-radius:999px;padding:4px 10px;backdrop-filter:blur(8px)}header,main,footer{max-width:1080px;margin:0 auto}header{padding:38px 16px 14px}.hero{background:rgba(255,253,248,.86);border:1px solid rgba(234,223,210,.95);border-radius:30px;padding:28px 20px;box-shadow:var(--shadow)}h1{margin:0;font-size:clamp(28px,5vw,44px)}.subtitle{margin:8px 0 0;color:var(--muted);font-weight:650}.meta-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:20px}.meta-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px 14px}.meta-label{color:var(--muted);font-size:13px;font-weight:800}.meta-value{margin-top:2px;font-size:16px;font-weight:900}main{padding:16px}.toolbar{position:sticky;top:0;z-index:10;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;align-items:center;margin:8px 0 22px;padding:12px;background:rgba(251,247,240,.9);border-bottom:1px solid rgba(234,223,210,.7);backdrop-filter:blur(8px)}button{border:0;border-radius:999px;padding:10px 16px;cursor:pointer;background:var(--accent-dark);color:#fff;font-size:15px;font-weight:900;transition:.15s ease}button:hover{transform:translateY(-1px)}button.secondary{background:#fffdf8;color:var(--accent-dark);border:1px solid var(--line)}.score{background:#fffdf8;border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:var(--muted);font-weight:900}.panel{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:24px;padding:18px;margin:16px 0;box-shadow:var(--shadow)}.panel h2{margin:0 0 10px;font-size:22px}.mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mode-card{border-radius:20px;border:1px solid var(--line);padding:14px;background:#fffdf8}.mode-card:nth-child(1){background:var(--accent-soft)}.mode-card:nth-child(2){background:var(--blue)}.mode-card:nth-child(3){background:var(--rose)}.mode-title{font-weight:950;font-size:17px}.mode-text{color:var(--muted);font-size:14px;margin-top:4px}.chapter-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.tag{display:inline-flex;background:#fff;border:1px solid var(--line);color:var(--accent-dark);border-radius:999px;padding:6px 10px;font-weight:850;font-size:14px}.section-title{margin:30px 0 12px;display:flex;align-items:center;gap:10px;font-size:22px}.section-title:before{content:"";width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:20px 0 0 #f1d0c8,40px 0 0 #d8edf6;margin-right:34px}.question{background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:26px;padding:20px;margin:16px 0;box-shadow:var(--shadow)}.q-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;flex-wrap:wrap;margin-bottom:8px}.qno{display:inline-block;background:var(--accent-soft);color:var(--accent-dark);border:1px solid #d4e8e0;border-radius:999px;padding:3px 10px;font-weight:950}.q-meta{color:var(--muted);font-size:13px;font-weight:850;background:#fffaf0;border:1px solid #eadbb8;border-radius:999px;padding:3px 10px}.qtext{font-weight:900;font-size:18px}.math{margin-top:10px;font-size:19px;background:#fffaf0;border:1px dashed #ead7a5;padding:12px 14px;border-radius:16px;overflow-x:auto;white-space:nowrap}.options{display:grid;gap:10px;margin-top:14px}.option{width:100%;text-align:left;border:1px solid var(--line);background:#fffdf8;color:var(--ink);border-radius:18px;padding:12px 14px;font-weight:820;cursor:pointer}.option:hover{background:#fbfdfb;border-color:#c6ddd4}.option.correct{background:var(--right-soft);border-color:var(--right);color:#2e6843}.option.wrong{background:var(--wrong-soft);border-color:var(--wrong);color:#91423c}.option:disabled{cursor:default;opacity:1}details{margin-top:14px;border-radius:18px;border:1px solid #ecdba5;background:var(--cream);padding:10px 13px}summary{cursor:pointer;font-weight:950;color:#755d17}.explanation{display:none;margin-top:14px;padding:13px 15px;border-radius:18px;border:1px solid #cfe3dc;background:var(--accent-soft)}.explanation.show{display:block}.result{display:inline-block;margin-top:10px;font-weight:950}.result.good{color:var(--right)}.result.bad{color:var(--wrong)}footer{color:var(--muted);text-align:center;padding:26px 16px 42px;font-size:14px}@media(max-width:760px){.meta-grid,.mode-grid{grid-template-columns:1fr}.toolbar{position:static}.copyright{position:absolute}}@media print{body{background:#fff}.toolbar,footer{display:none}.hero,.panel,.question{box-shadow:none}details,.explanation{display:none!important}.question{break-inside:avoid}.copyright{position:fixed}}
+:root {
+  --bg:#fbf7f0; --paper:#fffdf8; --ink:#2f3f3c; --muted:#75817d;
+  --line:#eadfd2; --accent:#78a99a; --accent-dark:#426f64; --accent-soft:#edf6f2;
+  --cream:#fff4d8; --blue:#e7f2f8; --rose:#f8e3df;
+  --right:#4d8d62; --right-soft:#edf8ef; --wrong:#b86660; --wrong-soft:#fff0ee;
+  --shadow:0 12px 28px rgba(67,81,76,.08);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  color:var(--ink);
+  background:radial-gradient(circle at top left,#f8e0da 0,transparent 31%),
+             radial-gradient(circle at top right,#dff0f7 0,transparent 30%),
+             linear-gradient(180deg,#fbf7f0,#f8f1e7);
+  line-height:1.65;
+}
+.copyright {
+  position:fixed; top:10px; right:14px; z-index:20; font-size:13px; color:#6f7b77;
+  background:rgba(255,253,248,.84); border:1px solid rgba(234,223,210,.86);
+  border-radius:999px; padding:4px 10px; backdrop-filter:blur(8px);
+}
+header, main, footer { max-width:1080px; margin:0 auto; }
+header { padding:38px 16px 14px; }
+.hero, .panel, .question {
+  background:rgba(255,253,248,.88); border:1px solid var(--line);
+  border-radius:28px; box-shadow:var(--shadow);
+}
+.hero { padding:28px 20px; }
+h1 { margin:0; font-size:clamp(28px,5vw,44px); }
+.subtitle { margin:8px 0 0; color:var(--muted); font-weight:650; }
+.meta-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:20px; }
+.meta-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:12px 14px; }
+.meta-label { color:var(--muted); font-size:13px; font-weight:800; }
+.meta-value { margin-top:2px; font-size:16px; font-weight:900; }
+main { padding:16px; }
+.toolbar {
+  position:sticky; top:0; z-index:10; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center;
+  margin:8px 0 22px; padding:12px; background:rgba(251,247,240,.9); border-bottom:1px solid rgba(234,223,210,.7);
+  backdrop-filter:blur(8px);
+}
+button {
+  border:0; border-radius:999px; padding:10px 16px; cursor:pointer; background:var(--accent-dark);
+  color:#fff; font-size:15px; font-weight:900; transition:.15s ease;
+}
+button:hover { transform:translateY(-1px); }
+button.secondary { background:#fffdf8; color:var(--accent-dark); border:1px solid var(--line); }
+.score { background:#fffdf8; border:1px solid var(--line); border-radius:999px; padding:9px 14px; color:var(--muted); font-weight:900; }
+.panel { padding:18px; margin:16px 0; }
+.mode-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+.mode-card { border-radius:20px; border:1px solid var(--line); padding:14px; background:#fffdf8; }
+.mode-card:nth-child(1) { background:var(--accent-soft); }
+.mode-card:nth-child(2) { background:var(--blue); }
+.mode-card:nth-child(3) { background:var(--rose); }
+.mode-title { font-weight:950; font-size:17px; }
+.mode-text { color:var(--muted); font-size:14px; margin-top:4px; }
+.chapter-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.tag { background:#fff; border:1px solid var(--line); color:var(--accent-dark); border-radius:999px; padding:6px 10px; font-weight:850; font-size:14px; }
+.section-title { margin:30px 0 12px; font-size:22px; }
+.question { padding:20px; margin:16px 0; background:rgba(255,255,255,.94); }
+.q-head { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+.qno { background:var(--accent-soft); color:var(--accent-dark); border:1px solid #d4e8e0; border-radius:999px; padding:3px 10px; font-weight:950; }
+.q-meta { color:var(--muted); font-size:13px; font-weight:850; background:#fffaf0; border:1px solid #eadbb8; border-radius:999px; padding:3px 10px; }
+.qtext { font-weight:900; font-size:18px; }
+.math { margin-top:10px; font-size:19px; background:#fffaf0; border:1px dashed #ead7a5; padding:12px 14px; border-radius:16px; overflow-x:auto; white-space:nowrap; }
+.options { display:grid; gap:10px; margin-top:14px; }
+.option { width:100%; text-align:left; border:1px solid var(--line); background:#fffdf8; color:var(--ink); border-radius:18px; padding:12px 14px; font-weight:820; }
+.option.correct { background:var(--right-soft); border-color:var(--right); color:#2e6843; }
+.option.wrong { background:var(--wrong-soft); border-color:var(--wrong); color:#91423c; }
+.option:disabled { cursor:default; opacity:1; }
+details { margin-top:14px; border-radius:18px; border:1px solid #ecdba5; background:var(--cream); padding:10px 13px; }
+summary { cursor:pointer; font-weight:950; color:#755d17; }
+.explanation { display:none; margin-top:14px; padding:13px 15px; border-radius:18px; border:1px solid #cfe3dc; background:var(--accent-soft); }
+.explanation.show { display:block; }
+.result { display:inline-block; margin-top:10px; font-weight:950; }
+.result.good { color:var(--right); }
+.result.bad { color:var(--wrong); }
+footer { color:var(--muted); text-align:center; padding:26px 16px 42px; font-size:14px; }
+@media (max-width:760px) {
+  .meta-grid,.mode-grid { grid-template-columns:1fr; }
+  .toolbar { position:static; }
+  .copyright { position:absolute; }
+}
+@media print {
+  body { background:#fff; }
+  .toolbar, footer { display:none; }
+  .hero,.panel,.question { box-shadow:none; }
+  details,.explanation { display:none!important; }
+  .question { break-inside:avoid; }
+}
 </style>
 </head>
 <body>
 <div class="copyright">© Capt. Caber</div>
-<header><section class="hero"><h1>私中數學練習題</h1><p class="subtitle">每週練習／多章節複習／模擬考試共用版型</p><div class="meta-grid"><div class="meta-card"><div class="meta-label">更新日期</div><div class="meta-value">2026-05-25</div></div><div class="meta-card"><div class="meta-label">練習模式</div><div class="meta-value">每週練習</div></div><div class="meta-card"><div class="meta-label">章節</div><div class="meta-value">第 7 章</div></div><div class="meta-card"><div class="meta-label">章節名稱</div><div class="meta-value">長式子的四則運算</div></div></div></section></header>
-<main>
-<div class="toolbar"><button onclick="resetQuiz()">重新作答</button><button class="secondary" onclick="expandHints()">全部打開提示</button><button class="secondary" onclick="collapseHints()">全部收合提示</button><button class="secondary" onclick="window.print()">列印題目</button><span class="score" id="score">已答 0 / 10，答對 0 題</span></div>
-<section class="panel"><h2>本份練習資訊</h2><div class="mode-grid"><div class="mode-card"><div class="mode-title">每週練習</div><div class="mode-text">適合配合當週進度，題目集中在單一章節。</div></div><div class="mode-card"><div class="mode-title">多章節複習</div><div class="mode-text">日後可在題目標籤列出章節，混合複習舊單元。</div></div><div class="mode-card"><div class="mode-title">模擬考試</div><div class="mode-text">可改成不顯示提示，作答後再統一看詳解。</div></div></div><div class="chapter-tags"><span class="tag">第 7 章</span><span class="tag">長式子的四則運算</span><span class="tag">正負數</span><span class="tag">括號與絕對值</span><span class="tag">分數四則</span></div></section>
-<h2 class="section-title">第 7 章｜長式子的四則運算</h2>
 
-<section class="question" data-answer="B"><div class="q-head"><span class="qno">第 1 題</span><span class="q-meta">第7章｜整數四則</span></div><div class="qtext">計算下列式子的值：</div><div class="math">(-3) × [(-15) × 4 + (-60) × (5 - 9)]</div><div class="options"><button class="option" data-choice="A">A. -360</button><button class="option" data-choice="B">B. -540</button><button class="option" data-choice="C">C. 540</button><button class="option" data-choice="D">D. 180</button></div><details><summary>提示</summary>先算括號內的 5 - 9，再算中括號裡的乘法與加法。</details><div class="explanation"><b>詳解：</b>5-9=-4。中括號內為 (-15)×4 + (-60)×(-4) = -60 + 240 = 180。最後 (-3)×180 = -540。</div></section>
-<section class="question" data-answer="C"><div class="q-head"><span class="qno">第 2 題</span><span class="q-meta">第7章｜括號運算</span></div><div class="qtext">計算下列式子的值：</div><div class="math">58 - [(-12) + 4 × (-6)] - (-72) ÷ (-4) × 2</div><div class="options"><button class="option" data-choice="A">A. 22</button><button class="option" data-choice="B">B. 36</button><button class="option" data-choice="C">C. 58</button><button class="option" data-choice="D">D. 94</button></div><details><summary>提示</summary>中括號與最後的除乘要先處理。</details><div class="explanation"><b>詳解：</b>[(-12)+4×(-6)] = -12-24 = -36。(-72)÷(-4)×2 = 18×2 = 36。所以 58-(-36)-36 = 58。</div></section>
-<section class="question" data-answer="A"><div class="q-head"><span class="qno">第 3 題</span><span class="q-meta">第7章｜絕對值</span></div><div class="qtext">計算下列式子的值：</div><div class="math">|(-3) × (4 - 17)| - |(6 - 15) × 2|</div><div class="options"><button class="option" data-choice="A">A. 21</button><button class="option" data-choice="B">B. -21</button><button class="option" data-choice="C">C. 39</button><button class="option" data-choice="D">D. 57</button></div><details><summary>提示</summary>絕對值裡面先算完，最後再取正值。</details><div class="explanation"><b>詳解：</b>4-17=-13，(-3)×(-13)=39，所以第一個絕對值是 39。6-15=-9，(-9)×2=-18，所以第二個絕對值是 18。39-18=21。</div></section>
-<section class="question" data-answer="D"><div class="q-head"><span class="qno">第 4 題</span><span class="q-meta">第7章｜公因數簡化</span></div><div class="qtext">計算下列式子的值：</div><div class="math">72 × (-6) + 8 × (-6)</div><div class="options"><button class="option" data-choice="A">A. -384</button><button class="option" data-choice="B">B. -432</button><button class="option" data-choice="C">C. 480</button><button class="option" data-choice="D">D. -480</button></div><details><summary>提示</summary>可以提出共同的 (-6)。</details><div class="explanation"><b>詳解：</b>72×(-6)+8×(-6) = (72+8)×(-6) = 80×(-6) = -480。</div></section>
-<section class="question" data-answer="A"><div class="q-head"><span class="qno">第 5 題</span><span class="q-meta">第7章｜絕對值與乘法</span></div><div class="qtext">計算下列式子的值：</div><div class="math">|-9 × (6 - 8)| + 5 × (-4)</div><div class="options"><button class="option" data-choice="A">A. -2</button><button class="option" data-choice="B">B. 2</button><button class="option" data-choice="C">C. -38</button><button class="option" data-choice="D">D. 38</button></div><details><summary>提示</summary>絕對值的結果一定是非負數。</details><div class="explanation"><b>詳解：</b>6-8=-2，-9×(-2)=18，所以絕對值是 18。5×(-4)=-20。18+(-20)=-2。</div></section>
-<section class="question" data-answer="B"><div class="q-head"><span class="qno">第 6 題</span><span class="q-meta">第7章｜分數四則</span></div><div class="qtext">計算下列式子的值：</div><div class="math">1/2 + 2/(-2)^2 + 3/(-2)^3 + 4/(-2)^4</div><div class="options"><button class="option" data-choice="A">A. -1/8</button><button class="option" data-choice="B">B. 7/8</button><button class="option" data-choice="C">C. 9/8</button><button class="option" data-choice="D">D. 3/4</button></div><details><summary>提示</summary>先算次方，奇次方為負，偶次方為正。</details><div class="explanation"><b>詳解：</b>(-2)^2=4，(-2)^3=-8，(-2)^4=16。原式 = 1/2 + 2/4 + 3/(-8) + 4/16 = 1/2+1/2-3/8+1/4 = 7/8。</div></section>
-<section class="question" data-answer="D"><div class="q-head"><span class="qno">第 7 題</span><span class="q-meta">第7章｜分配律</span></div><div class="qtext">計算下列式子的值：</div><div class="math">25.3 × (-7/3) + (7/3) × 22.3</div><div class="options"><button class="option" data-choice="A">A. 3</button><button class="option" data-choice="B">B. 7</button><button class="option" data-choice="C">C. -3</button><button class="option" data-choice="D">D. -7</button></div><details><summary>提示</summary>把 7/3 提出來，注意第一項是負的。</details><div class="explanation"><b>詳解：</b>25.3×(-7/3)+(7/3)×22.3 = (7/3)×(-25.3+22.3) = (7/3)×(-3) = -7。</div></section>
-<section class="question" data-answer="C"><div class="q-head"><span class="qno">第 8 題</span><span class="q-meta">第7章｜分數與括號</span></div><div class="qtext">計算下列式子的值：</div><div class="math">3 3/4 ÷ (1 1/12 - 5/6) + 5/7 × 8 2/5</div><div class="options"><button class="option" data-choice="A">A. 18</button><button class="option" data-choice="B">B. 20</button><button class="option" data-choice="C">C. 21</button><button class="option" data-choice="D">D. 24</button></div><details><summary>提示</summary>先把帶分數改成假分數，再算括號。</details><div class="explanation"><b>詳解：</b>3 3/4=15/4，1 1/12-5/6=13/12-10/12=1/4，所以 15/4÷1/4=15。8 2/5=42/5，所以 5/7×42/5=6。總和 15+6=21。</div></section>
-<section class="question" data-answer="A"><div class="q-head"><span class="qno">第 9 題</span><span class="q-meta">第7章｜指數與絕對值</span></div><div class="qtext">計算下列式子的值：</div><div class="math">|(-5)^2 × 2^2 - 4 × 7^2| - (-3^4) ÷ 9</div><div class="options"><button class="option" data-choice="A">A. 105</button><button class="option" data-choice="B">B. 96</button><button class="option" data-choice="C">C. 87</button><button class="option" data-choice="D">D. -105</button></div><details><summary>提示</summary>注意 -3^4 代表 -(3^4)，不是 (-3)^4。</details><div class="explanation"><b>詳解：</b>(-5)^2×2^2 = 25×4=100，4×7^2=196，所以絕對值為 |100-196|=96。(-3^4)= -81，-81÷9=-9。原式 96-(-9)=105。</div></section>
-<section class="question" data-answer="B"><div class="q-head"><span class="qno">第 10 題</span><span class="q-meta">第7章｜綜合應用</span></div><div class="qtext">計算下列式子的值：</div><div class="math">(-1/4) × 4/5 - [(-5 5/8) × (-4 4/5) ÷ 9/5]</div><div class="options"><button class="option" data-choice="A">A. -14 4/5</button><button class="option" data-choice="B">B. -15 1/5</button><button class="option" data-choice="C">C. 15 1/5</button><button class="option" data-choice="D">D. -15 4/5</button></div><details><summary>提示</summary>先把帶分數改成假分數。除以 9/5 等於乘以 5/9。</details><div class="explanation"><b>詳解：</b>(-1/4)×4/5=-1/5。(-5 5/8)= -45/8，(-4 4/5)= -24/5，兩者相乘得 27；再除以 9/5，即 27×5/9=15。原式 = -1/5 - 15 = -15 1/5。</div></section>
-</main><footer>版型用途：每週練習可使用單章標籤；多章節複習與模擬考可在每題右上角標示章節來源。</footer>
+<header>
+<section class="hero">
+  <h1>私中數學練習題</h1>
+  <p class="subtitle">每週練習／多章節複習／模擬考試共用版型</p>
+  <div class="meta-grid">
+    <div class="meta-card"><div class="meta-label">更新日期</div><div class="meta-value">2026-05-25</div></div>
+    <div class="meta-card"><div class="meta-label">練習模式</div><div class="meta-value">每週練習</div></div>
+    <div class="meta-card"><div class="meta-label">章節</div><div class="meta-value">第 7 章</div></div>
+    <div class="meta-card"><div class="meta-label">章節名稱</div><div class="meta-value">長式子的四則運算</div></div>
+  </div>
+</section>
+</header>
+
+<main>
+<div class="toolbar">
+  <button onclick="resetQuiz()">重新作答</button>
+  <button class="secondary" onclick="expandHints()">全部打開提示</button>
+  <button class="secondary" onclick="collapseHints()">全部收合提示</button>
+  <button class="secondary" onclick="window.print()">列印題目</button>
+  <span class="score" id="score">已答 0 / 20，答對 0 題</span>
+</div>
+
+<section class="panel">
+  <h2>本份練習資訊</h2>
+  <div class="mode-grid">
+    <div class="mode-card"><div class="mode-title">每週練習</div><div class="mode-text">適合配合當週進度，題目集中在單一章節。</div></div>
+    <div class="mode-card"><div class="mode-title">多章節複習</div><div class="mode-text">日後可在題目標籤列出章節，混合複習舊單元。</div></div>
+    <div class="mode-card"><div class="mode-title">模擬考試</div><div class="mode-text">可改成不顯示提示，作答後再統一看詳解。</div></div>
+  </div>
+  <div class="chapter-tags">
+    <span class="tag">第 7 章</span><span class="tag">長式子的四則運算</span><span class="tag">正負數</span>
+    <span class="tag">指數</span><span class="tag">括號與絕對值</span><span class="tag">分數四則</span>
+  </div>
+</section>
+
+<h2 class="section-title">第 7 章｜長式子的四則運算｜20 題</h2>
+
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 1 題</span>
+    <span class="q-meta">第7章｜整數四則</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">(-6) × [8 - 3 × (5 - 9)]</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -120</button>
+<button class="option" data-choice="B">B. -72</button>
+<button class="option" data-choice="C">C. 72</button>
+<button class="option" data-choice="D">D. 120</button>
+
+  </div>
+  <details><summary>提示</summary>先算小括號，再算中括號，最後乘以 -6。</details>
+  <div class="explanation"><b>詳解：</b>5-9=-4，3×(-4)=-12，所以中括號為 8-(-12)=20。最後 (-6)×20=-120。</div>
+</section>
+
+<section class="question" data-answer="C">
+  <div class="q-head">
+    <span class="qno">第 2 題</span>
+    <span class="q-meta">第7章｜括號運算</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">48 - [(-18) + 6 × (-5)]</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 0</button>
+<button class="option" data-choice="B">B. 36</button>
+<button class="option" data-choice="C">C. 96</button>
+<button class="option" data-choice="D">D. -96</button>
+
+  </div>
+  <details><summary>提示</summary>中括號內先乘除後加減。</details>
+  <div class="explanation"><b>詳解：</b>6×(-5)=-30，中括號內為 -18+(-30)=-48。原式 48-(-48)=96。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 3 題</span>
+    <span class="q-meta">第7章｜絕對值</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">|(-4) × (3 - 11)| - |(-6) × 5|</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 2</button>
+<button class="option" data-choice="B">B. 12</button>
+<button class="option" data-choice="C">C. 32</button>
+<button class="option" data-choice="D">D. 62</button>
+
+  </div>
+  <details><summary>提示</summary>絕對值內先算完，再把結果變成非負數。</details>
+  <div class="explanation"><b>詳解：</b>3-11=-8，(-4)×(-8)=32；|(-6)×5|=30，所以 32-30=2。</div>
+</section>
+
+<section class="question" data-answer="C">
+  <div class="q-head">
+    <span class="qno">第 4 題</span>
+    <span class="q-meta">第7章｜公因數簡化</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">35 × (-8) + 15 × (-8)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -160</button>
+<button class="option" data-choice="B">B. -280</button>
+<button class="option" data-choice="C">C. -400</button>
+<button class="option" data-choice="D">D. 400</button>
+
+  </div>
+  <details><summary>提示</summary>可以提出共同的 (-8)。</details>
+  <div class="explanation"><b>詳解：</b>(35+15)×(-8)=50×(-8)=-400。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 5 題</span>
+    <span class="q-meta">第7章｜絕對值與乘法</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">|-7 × (4 - 10)| + 6 × (-8)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -6</button>
+<button class="option" data-choice="B">B. 6</button>
+<button class="option" data-choice="C">C. -90</button>
+<button class="option" data-choice="D">D. 90</button>
+
+  </div>
+  <details><summary>提示</summary>絕對值先處理，再和後面的負數相加。</details>
+  <div class="explanation"><b>詳解：</b>4-10=-6，-7×(-6)=42，6×(-8)=-48，所以 42+(-48)=-6。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 6 題</span>
+    <span class="q-meta">第7章｜指數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">(-2)^4 - 3^2 × 2</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -2</button>
+<button class="option" data-choice="B">B. 2</button>
+<button class="option" data-choice="C">C. 14</button>
+<button class="option" data-choice="D">D. 34</button>
+
+  </div>
+  <details><summary>提示</summary>先算指數，再做乘法。</details>
+  <div class="explanation"><b>詳解：</b>(-2)^4=16，3^2×2=18，所以 16-18=-2。</div>
+</section>
+
+<section class="question" data-answer="C">
+  <div class="q-head">
+    <span class="qno">第 7 題</span>
+    <span class="q-meta">第7章｜指數與負號</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">-3^2 + (-3)^2 + 4</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -14</button>
+<button class="option" data-choice="B">B. -4</button>
+<button class="option" data-choice="C">C. 4</button>
+<button class="option" data-choice="D">D. 13</button>
+
+  </div>
+  <details><summary>提示</summary>-3^2 是 -(3^2)，而 (-3)^2 是把 -3 整個平方。</details>
+  <div class="explanation"><b>詳解：</b>-3^2=-9，(-3)^2=9，所以 -9+9+4=4。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 8 題</span>
+    <span class="q-meta">第7章｜中括號</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">36 - [(-2)^3 × 5 + 60 ÷ 3]</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 56</button>
+<button class="option" data-choice="B">B. 40</button>
+<button class="option" data-choice="C">C. -24</button>
+<button class="option" data-choice="D">D. 24</button>
+
+  </div>
+  <details><summary>提示</summary>中括號內的指數、乘除先算。</details>
+  <div class="explanation"><b>詳解：</b>(-2)^3=-8，(-8)×5=-40，60÷3=20；中括號為 -20，36-(-20)=56。</div>
+</section>
+
+<section class="question" data-answer="B">
+  <div class="q-head">
+    <span class="qno">第 9 題</span>
+    <span class="q-meta">第7章｜除法與負數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">[(-48) ÷ 6 - 7] × (-3)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -45</button>
+<button class="option" data-choice="B">B. 45</button>
+<button class="option" data-choice="C">C. -3</button>
+<button class="option" data-choice="D">D. 3</button>
+
+  </div>
+  <details><summary>提示</summary>先算中括號。</details>
+  <div class="explanation"><b>詳解：</b>(-48)÷6=-8，-8-7=-15。(-15)×(-3)=45。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 10 題</span>
+    <span class="q-meta">第7章｜分配律</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">64 × (-7) + 36 × (-7)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -700</button>
+<button class="option" data-choice="B">B. -448</button>
+<button class="option" data-choice="C">C. 700</button>
+<button class="option" data-choice="D">D. 196</button>
+
+  </div>
+  <details><summary>提示</summary>兩項都有共同因數 -7。</details>
+  <div class="explanation"><b>詳解：</b>(64+36)×(-7)=100×(-7)=-700。</div>
+</section>
+
+<section class="question" data-answer="B">
+  <div class="q-head">
+    <span class="qno">第 11 題</span>
+    <span class="q-meta">第7章｜分數四則</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">1/2 + 3/4 - 5/8</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 3/8</button>
+<button class="option" data-choice="B">B. 5/8</button>
+<button class="option" data-choice="C">C. 7/8</button>
+<button class="option" data-choice="D">D. 9/8</button>
+
+  </div>
+  <details><summary>提示</summary>全部通分成分母 8。</details>
+  <div class="explanation"><b>詳解：</b>1/2=4/8，3/4=6/8，所以 4/8+6/8-5/8=5/8。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 12 題</span>
+    <span class="q-meta">第7章｜分數乘除</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">3/5 ÷ (-9/10) × 6</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -4</button>
+<button class="option" data-choice="B">B. -2/5</button>
+<button class="option" data-choice="C">C. 4</button>
+<button class="option" data-choice="D">D. 2/5</button>
+
+  </div>
+  <details><summary>提示</summary>除以分數等於乘以倒數。</details>
+  <div class="explanation"><b>詳解：</b>3/5÷(-9/10)=3/5×(-10/9)=-2/3；再乘以 6 得 -4。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 13 題</span>
+    <span class="q-meta">第7章｜帶分數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">2 1/3 - 1 5/6</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 1/2</button>
+<button class="option" data-choice="B">B. 2/3</button>
+<button class="option" data-choice="C">C. 5/6</button>
+<button class="option" data-choice="D">D. 1 1/2</button>
+
+  </div>
+  <details><summary>提示</summary>先改成假分數或把整數與分數分開算。</details>
+  <div class="explanation"><b>詳解：</b>2 1/3=14/6，1 5/6=11/6，所以 14/6-11/6=3/6=1/2。</div>
+</section>
+
+<section class="question" data-answer="C">
+  <div class="q-head">
+    <span class="qno">第 14 題</span>
+    <span class="q-meta">第7章｜分數與指數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">1/(-3)^2 - 4/(-3)^3</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -1/27</button>
+<button class="option" data-choice="B">B. 1/27</button>
+<button class="option" data-choice="C">C. 7/27</button>
+<button class="option" data-choice="D">D. 5/9</button>
+
+  </div>
+  <details><summary>提示</summary>先算次方，注意奇次方是負數，偶次方是正數。</details>
+  <div class="explanation"><b>詳解：</b>(-3)^2=9，(-3)^3=-27，所以 1/9-4/(-27)=1/9+4/27=7/27。</div>
+</section>
+
+<section class="question" data-answer="C">
+  <div class="q-head">
+    <span class="qno">第 15 題</span>
+    <span class="q-meta">第7章｜小數與分數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">0.25 × (-12) + 1/2 × 10</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -8</button>
+<button class="option" data-choice="B">B. -3</button>
+<button class="option" data-choice="C">C. 2</button>
+<button class="option" data-choice="D">D. 8</button>
+
+  </div>
+  <details><summary>提示</summary>0.25 可以看成 1/4。</details>
+  <div class="explanation"><b>詳解：</b>0.25×(-12)=-3，1/2×10=5，所以 -3+5=2。</div>
+</section>
+
+<section class="question" data-answer="B">
+  <div class="q-head">
+    <span class="qno">第 16 題</span>
+    <span class="q-meta">第7章｜括號與分數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">(3/4 - 5/6) ÷ (-1/12)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -1</button>
+<button class="option" data-choice="B">B. 1</button>
+<button class="option" data-choice="C">C. -7</button>
+<button class="option" data-choice="D">D. 7</button>
+
+  </div>
+  <details><summary>提示</summary>先算括號，通分成分母 12。</details>
+  <div class="explanation"><b>詳解：</b>3/4=9/12，5/6=10/12，括號內為 -1/12；(-1/12)÷(-1/12)=1。</div>
+</section>
+
+<section class="question" data-answer="B">
+  <div class="q-head">
+    <span class="qno">第 17 題</span>
+    <span class="q-meta">第7章｜絕對值與分數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">|-3/4| + |-5/6| - 1/2</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 7/12</button>
+<button class="option" data-choice="B">B. 13/12</button>
+<button class="option" data-choice="C">C. -7/12</button>
+<button class="option" data-choice="D">D. 1/12</button>
+
+  </div>
+  <details><summary>提示</summary>絕對值會把負分數變成正分數。</details>
+  <div class="explanation"><b>詳解：</b>3/4+5/6-1/2=9/12+10/12-6/12=13/12。</div>
+</section>
+
+<section class="question" data-answer="B">
+  <div class="q-head">
+    <span class="qno">第 18 題</span>
+    <span class="q-meta">第7章｜綜合運算</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">24 ÷ [3 × (-2) + 10]</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 4</button>
+<button class="option" data-choice="B">B. 6</button>
+<button class="option" data-choice="C">C. -4</button>
+<button class="option" data-choice="D">D. -6</button>
+
+  </div>
+  <details><summary>提示</summary>先算中括號，注意 3×(-2) 是負數。</details>
+  <div class="explanation"><b>詳解：</b>3×(-2)=-6，中括號為 -6+10=4。24÷4=6。</div>
+</section>
+
+<section class="question" data-answer="A">
+  <div class="q-head">
+    <span class="qno">第 19 題</span>
+    <span class="q-meta">第7章｜分配律與小數</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">18.6 × (-5/3) + 12.6 × (5/3)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. -10</button>
+<button class="option" data-choice="B">B. -8</button>
+<button class="option" data-choice="C">C. 8</button>
+<button class="option" data-choice="D">D. 10</button>
+
+  </div>
+  <details><summary>提示</summary>把 5/3 提出來，第一項是負的。</details>
+  <div class="explanation"><b>詳解：</b>(5/3)×(-18.6+12.6)=(5/3)×(-6)=-10。</div>
+</section>
+
+<section class="question" data-answer="C">
+  <div class="q-head">
+    <span class="qno">第 20 題</span>
+    <span class="q-meta">第7章｜模擬挑戰</span>
+  </div>
+  <div class="qtext">計算下列式子的值：</div>
+  <div class="math">|(-4)^2 - 5^2| + [(-18) ÷ 3] × (-2)</div>
+  <div class="options">
+    <button class="option" data-choice="A">A. 3</button>
+<button class="option" data-choice="B">B. 9</button>
+<button class="option" data-choice="C">C. 21</button>
+<button class="option" data-choice="D">D. 33</button>
+
+  </div>
+  <details><summary>提示</summary>先算指數與絕對值，再算中括號乘法。</details>
+  <div class="explanation"><b>詳解：</b>|16-25|=9；(-18)÷3=-6，(-6)×(-2)=12；9+12=21。</div>
+</section>
+
+</main>
+
+<footer>版型用途：每週練習、多章節複習與模擬考都可沿用。</footer>
+
 <script>
-const questions=document.querySelectorAll('.question');function updateScore(){let answered=0,correct=0;questions.forEach(q=>{if(q.dataset.answered==='true'){answered++;if(q.dataset.correct==='true')correct++;}});document.getElementById('score').textContent=`已答 ${answered} / ${questions.length}，答對 ${correct} 題`;}questions.forEach(q=>{q.dataset.answered='false';q.dataset.correct='false';q.querySelectorAll('.option').forEach(btn=>{btn.addEventListener('click',()=>{if(q.dataset.answered==='true')return;const answer=q.dataset.answer;const choice=btn.dataset.choice;const explanation=q.querySelector('.explanation');q.dataset.answered='true';q.dataset.correct=choice===answer?'true':'false';q.querySelectorAll('.option').forEach(opt=>{opt.disabled=true;if(opt.dataset.choice===answer)opt.classList.add('correct');});const mark=document.createElement('div');if(choice===answer){mark.className='result good';mark.textContent='答對了！';}else{btn.classList.add('wrong');mark.className='result bad';mark.textContent='答錯了，綠色選項是正確答案。';}explanation.before(mark);explanation.classList.add('show');updateScore();});});});function resetQuiz(){questions.forEach(q=>{q.dataset.answered='false';q.dataset.correct='false';q.querySelectorAll('.option').forEach(opt=>{opt.disabled=false;opt.classList.remove('correct','wrong');});q.querySelector('.explanation').classList.remove('show');q.querySelectorAll('.result').forEach(r=>r.remove());});updateScore();window.scrollTo({top:0,behavior:'smooth'});}function expandHints(){document.querySelectorAll('details').forEach(d=>d.open=true);}function collapseHints(){document.querySelectorAll('details').forEach(d=>d.open=false);}updateScore();
+const questions = document.querySelectorAll('.question');
+
+function updateScore() {
+  let answered = 0;
+  let correct = 0;
+  questions.forEach(q => {
+    if (q.dataset.answered === "true") {
+      answered++;
+      if (q.dataset.correct === "true") correct++;
+    }
+  });
+  document.getElementById('score').textContent = `已答 ${answered} / ${questions.length}，答對 ${correct} 題`;
+}
+
+questions.forEach(q => {
+  q.dataset.answered = "false";
+  q.dataset.correct = "false";
+  q.querySelectorAll('.option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (q.dataset.answered === "true") return;
+      const answer = q.dataset.answer;
+      const choice = btn.dataset.choice;
+      const explanation = q.querySelector('.explanation');
+      q.dataset.answered = "true";
+      q.dataset.correct = choice === answer ? "true" : "false";
+
+      q.querySelectorAll('.option').forEach(opt => {
+        opt.disabled = true;
+        if (opt.dataset.choice === answer) opt.classList.add('correct');
+      });
+
+      const mark = document.createElement('div');
+      if (choice === answer) {
+        mark.className = 'result good';
+        mark.textContent = '答對了！';
+      } else {
+        btn.classList.add('wrong');
+        mark.className = 'result bad';
+        mark.textContent = '答錯了，綠色選項是正確答案。';
+      }
+      explanation.before(mark);
+      explanation.classList.add('show');
+      updateScore();
+    });
+  });
+});
+
+function resetQuiz() {
+  questions.forEach(q => {
+    q.dataset.answered = "false";
+    q.dataset.correct = "false";
+    q.querySelectorAll('.option').forEach(opt => {
+      opt.disabled = false;
+      opt.classList.remove('correct', 'wrong');
+    });
+    q.querySelector('.explanation').classList.remove('show');
+    q.querySelectorAll('.result').forEach(r => r.remove());
+  });
+  updateScore();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function expandHints() {
+  document.querySelectorAll('details').forEach(d => d.open = true);
+}
+
+function collapseHints() {
+  document.querySelectorAll('details').forEach(d => d.open = false);
+}
+
+updateScore();
 </script>
 </body>
 </html>
