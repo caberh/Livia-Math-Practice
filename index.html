@@ -3,95 +3,361 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>私中數學練習｜第7章 長式子的四則運算｜20題</title>
+<title>Livia Math Practice｜私中數學練習產生器</title>
 <style>
 :root {
-  --bg:#fbf7f0; --paper:#fffdf8; --ink:#2f3f3c; --muted:#75817d;
-  --line:#eadfd2; --accent:#78a99a; --accent-dark:#426f64; --accent-soft:#edf6f2;
-  --cream:#fff4d8; --blue:#e7f2f8; --rose:#f8e3df;
-  --right:#4d8d62; --right-soft:#edf8ef; --wrong:#b86660; --wrong-soft:#fff0ee;
-  --shadow:0 12px 28px rgba(67,81,76,.08);
+  --bg:#f7f3ec;
+  --paper:#fffdf8;
+  --ink:#253b37;
+  --muted:#71817c;
+  --line:#e7ddd0;
+  --accent:#4f8a7b;
+  --accent-dark:#32695f;
+  --accent-soft:#e9f5f1;
+  --blue:#e7f1f8;
+  --rose:#f9e4df;
+  --amber:#fff4d7;
+  --right:#3e8754;
+  --right-soft:#edf8ef;
+  --wrong:#b45d55;
+  --wrong-soft:#fff0ee;
+  --shadow:0 14px 32px rgba(56,74,69,.09);
 }
 * { box-sizing:border-box; }
 body {
-  margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;
   color:var(--ink);
-  background:radial-gradient(circle at top left,#f8e0da 0,transparent 31%),
-             radial-gradient(circle at top right,#dff0f7 0,transparent 30%),
-             linear-gradient(180deg,#fbf7f0,#f8f1e7);
+  background:
+    radial-gradient(circle at top left,#f7ddd6 0,transparent 28%),
+    radial-gradient(circle at top right,#dff0f7 0,transparent 26%),
+    linear-gradient(180deg,#fbf8f2,#f5ede2);
   line-height:1.65;
 }
-.copyright {
-  position:fixed; top:10px; right:14px; z-index:20; font-size:13px; color:#6f7b77;
-  background:rgba(255,253,248,.84); border:1px solid rgba(234,223,210,.86);
-  border-radius:999px; padding:4px 10px; backdrop-filter:blur(8px);
-}
-header, main, footer { max-width:1080px; margin:0 auto; }
-header { padding:38px 16px 14px; }
-.hero, .panel, .question {
-  background:rgba(255,253,248,.88); border:1px solid var(--line);
-  border-radius:28px; box-shadow:var(--shadow);
-}
-.hero { padding:28px 20px; }
-h1 { margin:0; font-size:clamp(28px,5vw,44px); }
-.subtitle { margin:8px 0 0; color:var(--muted); font-weight:650; }
-.meta-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:20px; }
-.meta-card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:12px 14px; }
-.meta-label { color:var(--muted); font-size:13px; font-weight:800; }
-.meta-value { margin-top:2px; font-size:16px; font-weight:900; }
-main { padding:16px; }
-.toolbar {
-  position:sticky; top:0; z-index:10; display:flex; gap:10px; flex-wrap:wrap; justify-content:center; align-items:center;
-  margin:8px 0 22px; padding:12px; background:rgba(251,247,240,.9); border-bottom:1px solid rgba(234,223,210,.7);
-  backdrop-filter:blur(8px);
-}
+button, input, select { font:inherit; }
 button {
-  border:0; border-radius:999px; padding:10px 16px; cursor:pointer; background:var(--accent-dark);
-  color:#fff; font-size:15px; font-weight:900; transition:.15s ease;
+  border:0;
+  border-radius:999px;
+  padding:10px 16px;
+  cursor:pointer;
+  background:var(--accent-dark);
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  transition:.15s ease;
 }
 button:hover { transform:translateY(-1px); }
-button.secondary { background:#fffdf8; color:var(--accent-dark); border:1px solid var(--line); }
-.score { background:#fffdf8; border:1px solid var(--line); border-radius:999px; padding:9px 14px; color:var(--muted); font-weight:900; }
+button:disabled {
+  cursor:not-allowed;
+  opacity:.55;
+  transform:none;
+}
+button.secondary {
+  background:#fffdf8;
+  color:var(--accent-dark);
+  border:1px solid var(--line);
+}
+button.ghost {
+  background:transparent;
+  color:var(--accent-dark);
+  border:1px solid transparent;
+  padding-inline:10px;
+}
+header, main, footer { max-width:1120px; margin:0 auto; }
+header { padding:34px 16px 12px; }
+main { padding:14px 16px 24px; }
+.copyright {
+  position:fixed;
+  top:10px;
+  right:14px;
+  z-index:20;
+  font-size:13px;
+  color:#6f7b77;
+  background:rgba(255,253,248,.86);
+  border:1px solid rgba(234,223,210,.86);
+  border-radius:999px;
+  padding:4px 10px;
+  backdrop-filter:blur(8px);
+}
+.hero, .panel, .question {
+  background:rgba(255,253,248,.9);
+  border:1px solid var(--line);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+}
+.hero { padding:26px 20px; }
+h1 { margin:0; font-size:clamp(30px,5vw,46px); letter-spacing:0; }
+h2 { margin:0 0 12px; font-size:22px; letter-spacing:0; }
+.subtitle { margin:8px 0 0; color:var(--muted); font-weight:700; }
+.status-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  margin-top:18px;
+}
+.status-card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:11px 13px;
+}
+.status-label {
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850;
+}
+.status-value {
+  margin-top:1px;
+  font-size:16px;
+  font-weight:950;
+}
 .panel { padding:18px; margin:16px 0; }
-.mode-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
-.mode-card { border-radius:20px; border:1px solid var(--line); padding:14px; background:#fffdf8; }
-.mode-card:nth-child(1) { background:var(--accent-soft); }
-.mode-card:nth-child(2) { background:var(--blue); }
-.mode-card:nth-child(3) { background:var(--rose); }
-.mode-title { font-weight:950; font-size:17px; }
-.mode-text { color:var(--muted); font-size:14px; margin-top:4px; }
-.chapter-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-.tag { background:#fff; border:1px solid var(--line); color:var(--accent-dark); border-radius:999px; padding:6px 10px; font-weight:850; font-size:14px; }
-.section-title { margin:30px 0 12px; font-size:22px; }
-.question { padding:20px; margin:16px 0; background:rgba(255,255,255,.94); }
-.q-head { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
-.qno { background:var(--accent-soft); color:var(--accent-dark); border:1px solid #d4e8e0; border-radius:999px; padding:3px 10px; font-weight:950; }
-.q-meta { color:var(--muted); font-size:13px; font-weight:850; background:#fffaf0; border:1px solid #eadbb8; border-radius:999px; padding:3px 10px; }
+.setup-head {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.setup-actions {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.chapter-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+  margin-top:12px;
+}
+.chapter-card {
+  position:relative;
+  width:100%;
+  min-height:108px;
+  text-align:left;
+  color:var(--ink);
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:12px 14px;
+  box-shadow:none;
+}
+.chapter-card:hover { border-color:#bad7cf; }
+.chapter-card.selected {
+  background:var(--accent-soft);
+  border-color:var(--accent);
+  color:var(--ink);
+}
+.chapter-card.empty { background:#fffaf0; }
+.chapter-top {
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850;
+}
+.chapter-title {
+  margin-top:8px;
+  font-size:16px;
+  font-weight:950;
+}
+.chapter-count {
+  margin-top:7px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850;
+}
+.settings-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.control-group {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+}
+.control-title {
+  font-weight:950;
+  margin-bottom:10px;
+}
+.segmented {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.pill {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:8px 12px;
+  background:#fffdf8;
+  color:var(--accent-dark);
+  font-weight:900;
+  cursor:pointer;
+}
+.pill input { accent-color:var(--accent-dark); }
+.toolbar {
+  position:sticky;
+  top:0;
+  z-index:10;
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+  align-items:center;
+  margin:10px 0 18px;
+  padding:12px;
+  background:rgba(251,247,240,.92);
+  border-bottom:1px solid rgba(234,223,210,.78);
+  backdrop-filter:blur(8px);
+}
+.score {
+  background:#fffdf8;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:9px 14px;
+  color:var(--muted);
+  font-weight:900;
+}
+.notice {
+  margin:14px 0 0;
+  padding:12px 14px;
+  border-radius:14px;
+  background:var(--amber);
+  border:1px solid #ecdba5;
+  color:#755d17;
+  font-weight:850;
+}
+.section-title {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:26px 0 12px;
+}
+.section-title h2 { margin:0; }
+.question {
+  padding:18px;
+  margin:14px 0;
+  background:rgba(255,255,255,.95);
+  border-radius:18px;
+}
+.q-head {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:8px;
+}
+.qno {
+  background:var(--accent-soft);
+  color:var(--accent-dark);
+  border:1px solid #d4e8e0;
+  border-radius:999px;
+  padding:3px 10px;
+  font-weight:950;
+}
+.q-meta {
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850;
+  background:#fffaf0;
+  border:1px solid #eadbb8;
+  border-radius:999px;
+  padding:3px 10px;
+}
 .qtext { font-weight:900; font-size:18px; }
-.math { margin-top:10px; font-size:19px; background:#fffaf0; border:1px dashed #ead7a5; padding:12px 14px; border-radius:16px; overflow-x:auto; white-space:nowrap; }
-.options { display:grid; gap:10px; margin-top:14px; }
-.option { width:100%; text-align:left; border:1px solid var(--line); background:#fffdf8; color:var(--ink); border-radius:18px; padding:12px 14px; font-weight:820; }
-.option.correct { background:var(--right-soft); border-color:var(--right); color:#2e6843; }
-.option.wrong { background:var(--wrong-soft); border-color:var(--wrong); color:#91423c; }
+.math {
+  margin-top:10px;
+  font-size:19px;
+  background:#fffaf0;
+  border:1px dashed #ead7a5;
+  padding:12px 14px;
+  border-radius:14px;
+  overflow-x:auto;
+  white-space:nowrap;
+}
+.options {
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+.option {
+  width:100%;
+  text-align:left;
+  border:1px solid var(--line);
+  background:#fffdf8;
+  color:var(--ink);
+  border-radius:14px;
+  padding:12px 14px;
+  font-weight:820;
+}
+.option.selected {
+  border-color:var(--accent);
+  background:var(--blue);
+  color:var(--ink);
+}
+.option.correct {
+  background:var(--right-soft);
+  border-color:var(--right);
+  color:#2e6843;
+}
+.option.wrong {
+  background:var(--wrong-soft);
+  border-color:var(--wrong);
+  color:#91423c;
+}
 .option:disabled { cursor:default; opacity:1; }
-details { margin-top:14px; border-radius:18px; border:1px solid #ecdba5; background:var(--cream); padding:10px 13px; }
-summary { cursor:pointer; font-weight:950; color:#755d17; }
-.explanation { display:none; margin-top:14px; padding:13px 15px; border-radius:18px; border:1px solid #cfe3dc; background:var(--accent-soft); }
+details {
+  margin-top:14px;
+  border-radius:14px;
+  border:1px solid #ecdba5;
+  background:var(--amber);
+  padding:10px 13px;
+}
+summary {
+  cursor:pointer;
+  font-weight:950;
+  color:#755d17;
+}
+.explanation {
+  display:none;
+  margin-top:14px;
+  padding:13px 15px;
+  border-radius:14px;
+  border:1px solid #cfe3dc;
+  background:var(--accent-soft);
+}
 .explanation.show { display:block; }
-.result { display:inline-block; margin-top:10px; font-weight:950; }
+.result {
+  display:inline-block;
+  margin-top:10px;
+  font-weight:950;
+}
 .result.good { color:var(--right); }
 .result.bad { color:var(--wrong); }
-footer { color:var(--muted); text-align:center; padding:26px 16px 42px; font-size:14px; }
-@media (max-width:760px) {
-  .meta-grid,.mode-grid { grid-template-columns:1fr; }
+footer {
+  color:var(--muted);
+  text-align:center;
+  padding:22px 16px 40px;
+  font-size:14px;
+}
+@media (max-width:860px) {
+  .status-grid, .chapter-grid, .settings-grid { grid-template-columns:1fr; }
   .toolbar { position:static; }
   .copyright { position:absolute; }
 }
 @media print {
   body { background:#fff; }
-  .toolbar, footer { display:none; }
-  .hero,.panel,.question { box-shadow:none; }
-  details,.explanation { display:none!important; }
+  .copyright, .panel, .toolbar, footer { display:none; }
+  .hero, .question { box-shadow:none; }
+  details, .explanation { display:none!important; }
   .question { break-inside:avoid; }
 }
 </style>
@@ -100,479 +366,370 @@ footer { color:var(--muted); text-align:center; padding:26px 16px 42px; font-siz
 <div class="copyright">© Capt. Caber</div>
 
 <header>
-<section class="hero">
-  <h1>私中數學練習題</h1>
-  <p class="subtitle">每週練習／多章節複習／模擬考試共用版型</p>
-  <div class="meta-grid">
-    <div class="meta-card"><div class="meta-label">更新日期</div><div class="meta-value">2026-05-25</div></div>
-    <div class="meta-card"><div class="meta-label">練習模式</div><div class="meta-value">每週練習</div></div>
-    <div class="meta-card"><div class="meta-label">章節</div><div class="meta-value">第 7 章</div></div>
-    <div class="meta-card"><div class="meta-label">章節名稱</div><div class="meta-value">長式子的四則運算</div></div>
-  </div>
-</section>
+  <section class="hero">
+    <h1>Livia Math Practice</h1>
+    <p class="subtitle">私中數學練習產生器：選章節、選題數，立刻產生練習題。</p>
+    <div class="status-grid">
+      <div class="status-card"><div class="status-label">目前題庫</div><div class="status-value" id="bankStatus">第 7 週｜20 題</div></div>
+      <div class="status-card"><div class="status-label">已選章節</div><div class="status-value" id="chapterStatus">第 7 週</div></div>
+      <div class="status-card"><div class="status-label">練習題數</div><div class="status-value" id="amountStatus">20 題</div></div>
+      <div class="status-card"><div class="status-label">練習模式</div><div class="status-value" id="modeStatus">練習模式</div></div>
+    </div>
+  </section>
 </header>
 
 <main>
-<div class="toolbar">
-  <button onclick="resetQuiz()">重新作答</button>
-  <button class="secondary" onclick="expandHints()">全部打開提示</button>
-  <button class="secondary" onclick="collapseHints()">全部收合提示</button>
-  <button class="secondary" onclick="window.print()">列印題目</button>
-  <span class="score" id="score">已答 0 / 20，答對 0 題</span>
-</div>
+  <section class="panel" aria-labelledby="setupTitle">
+    <div class="setup-head">
+      <div>
+        <h2 id="setupTitle">練習設定</h2>
+        <div class="subtitle">可以單選一章，也可以複選多章混合練習。尚未建立題目的章節會先保留位置。</div>
+      </div>
+      <div class="setup-actions">
+        <button type="button" class="secondary" onclick="selectAvailableChapters()">選有題目的章節</button>
+        <button type="button" class="ghost" onclick="clearChapters()">清除選取</button>
+      </div>
+    </div>
+    <div class="chapter-grid" id="chapterGrid"></div>
+    <div class="notice" id="chapterNotice" hidden></div>
+  </section>
 
-<section class="panel">
-  <h2>本份練習資訊</h2>
-  <div class="mode-grid">
-    <div class="mode-card"><div class="mode-title">每週練習</div><div class="mode-text">適合配合當週進度，題目集中在單一章節。</div></div>
-    <div class="mode-card"><div class="mode-title">多章節複習</div><div class="mode-text">日後可在題目標籤列出章節，混合複習舊單元。</div></div>
-    <div class="mode-card"><div class="mode-title">模擬考試</div><div class="mode-text">可改成不顯示提示，作答後再統一看詳解。</div></div>
+  <section class="panel">
+    <div class="settings-grid">
+      <div class="control-group">
+        <div class="control-title">題數</div>
+        <div class="segmented" id="amountControls">
+          <label class="pill"><input type="radio" name="amount" value="10">10 題</label>
+          <label class="pill"><input type="radio" name="amount" value="20" checked>20 題</label>
+          <label class="pill"><input type="radio" name="amount" value="30">30 題</label>
+          <label class="pill"><input type="radio" name="amount" value="all">全部</label>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="control-title">模式</div>
+        <div class="segmented" id="modeControls">
+          <label class="pill"><input type="radio" name="mode" value="practice" checked>練習模式</label>
+          <label class="pill"><input type="radio" name="mode" value="quiz">小考模式</label>
+          <label class="pill"><input type="radio" name="mode" value="wrong">錯題複習</label>
+        </div>
+      </div>
+    </div>
+    <div class="setup-actions" style="margin-top:14px">
+      <button type="button" onclick="generatePractice()">產生練習題</button>
+      <button type="button" class="secondary" onclick="resetWrongBank()">清除錯題紀錄</button>
+    </div>
+  </section>
+
+  <div class="toolbar">
+    <button type="button" onclick="restartCurrentPractice()">重新作答</button>
+    <button type="button" class="secondary" onclick="expandHints()">全部打開提示</button>
+    <button type="button" class="secondary" onclick="collapseHints()">全部收合提示</button>
+    <button type="button" class="secondary" onclick="window.print()">列印題目</button>
+    <button type="button" id="submitQuizBtn" onclick="submitQuiz()" hidden>交卷看結果</button>
+    <span class="score" id="score">尚未產生題目</span>
   </div>
-  <div class="chapter-tags">
-    <span class="tag">第 7 章</span><span class="tag">長式子的四則運算</span><span class="tag">正負數</span>
-    <span class="tag">指數</span><span class="tag">括號與絕對值</span><span class="tag">分數四則</span>
-  </div>
-</section>
 
-<h2 class="section-title">第 7 章｜長式子的四則運算｜20 題</h2>
-
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 1 題</span>
-    <span class="q-meta">第7章｜整數四則</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">(-6) × [8 - 3 × (5 - 9)]</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -120</button>
-<button class="option" data-choice="B">B. -72</button>
-<button class="option" data-choice="C">C. 72</button>
-<button class="option" data-choice="D">D. 120</button>
-
-  </div>
-  <details><summary>提示</summary>先算小括號，再算中括號，最後乘以 -6。</details>
-  <div class="explanation"><b>詳解：</b>5-9=-4，3×(-4)=-12，所以中括號為 8-(-12)=20。最後 (-6)×20=-120。</div>
-</section>
-
-<section class="question" data-answer="C">
-  <div class="q-head">
-    <span class="qno">第 2 題</span>
-    <span class="q-meta">第7章｜括號運算</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">48 - [(-18) + 6 × (-5)]</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 0</button>
-<button class="option" data-choice="B">B. 36</button>
-<button class="option" data-choice="C">C. 96</button>
-<button class="option" data-choice="D">D. -96</button>
-
-  </div>
-  <details><summary>提示</summary>中括號內先乘除後加減。</details>
-  <div class="explanation"><b>詳解：</b>6×(-5)=-30，中括號內為 -18+(-30)=-48。原式 48-(-48)=96。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 3 題</span>
-    <span class="q-meta">第7章｜絕對值</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">|(-4) × (3 - 11)| - |(-6) × 5|</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 2</button>
-<button class="option" data-choice="B">B. 12</button>
-<button class="option" data-choice="C">C. 32</button>
-<button class="option" data-choice="D">D. 62</button>
-
-  </div>
-  <details><summary>提示</summary>絕對值內先算完，再把結果變成非負數。</details>
-  <div class="explanation"><b>詳解：</b>3-11=-8，(-4)×(-8)=32；|(-6)×5|=30，所以 32-30=2。</div>
-</section>
-
-<section class="question" data-answer="C">
-  <div class="q-head">
-    <span class="qno">第 4 題</span>
-    <span class="q-meta">第7章｜公因數簡化</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">35 × (-8) + 15 × (-8)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -160</button>
-<button class="option" data-choice="B">B. -280</button>
-<button class="option" data-choice="C">C. -400</button>
-<button class="option" data-choice="D">D. 400</button>
-
-  </div>
-  <details><summary>提示</summary>可以提出共同的 (-8)。</details>
-  <div class="explanation"><b>詳解：</b>(35+15)×(-8)=50×(-8)=-400。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 5 題</span>
-    <span class="q-meta">第7章｜絕對值與乘法</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">|-7 × (4 - 10)| + 6 × (-8)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -6</button>
-<button class="option" data-choice="B">B. 6</button>
-<button class="option" data-choice="C">C. -90</button>
-<button class="option" data-choice="D">D. 90</button>
-
-  </div>
-  <details><summary>提示</summary>絕對值先處理，再和後面的負數相加。</details>
-  <div class="explanation"><b>詳解：</b>4-10=-6，-7×(-6)=42，6×(-8)=-48，所以 42+(-48)=-6。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 6 題</span>
-    <span class="q-meta">第7章｜指數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">(-2)^4 - 3^2 × 2</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -2</button>
-<button class="option" data-choice="B">B. 2</button>
-<button class="option" data-choice="C">C. 14</button>
-<button class="option" data-choice="D">D. 34</button>
-
-  </div>
-  <details><summary>提示</summary>先算指數，再做乘法。</details>
-  <div class="explanation"><b>詳解：</b>(-2)^4=16，3^2×2=18，所以 16-18=-2。</div>
-</section>
-
-<section class="question" data-answer="C">
-  <div class="q-head">
-    <span class="qno">第 7 題</span>
-    <span class="q-meta">第7章｜指數與負號</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">-3^2 + (-3)^2 + 4</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -14</button>
-<button class="option" data-choice="B">B. -4</button>
-<button class="option" data-choice="C">C. 4</button>
-<button class="option" data-choice="D">D. 13</button>
-
-  </div>
-  <details><summary>提示</summary>-3^2 是 -(3^2)，而 (-3)^2 是把 -3 整個平方。</details>
-  <div class="explanation"><b>詳解：</b>-3^2=-9，(-3)^2=9，所以 -9+9+4=4。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 8 題</span>
-    <span class="q-meta">第7章｜中括號</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">36 - [(-2)^3 × 5 + 60 ÷ 3]</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 56</button>
-<button class="option" data-choice="B">B. 40</button>
-<button class="option" data-choice="C">C. -24</button>
-<button class="option" data-choice="D">D. 24</button>
-
-  </div>
-  <details><summary>提示</summary>中括號內的指數、乘除先算。</details>
-  <div class="explanation"><b>詳解：</b>(-2)^3=-8，(-8)×5=-40，60÷3=20；中括號為 -20，36-(-20)=56。</div>
-</section>
-
-<section class="question" data-answer="B">
-  <div class="q-head">
-    <span class="qno">第 9 題</span>
-    <span class="q-meta">第7章｜除法與負數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">[(-48) ÷ 6 - 7] × (-3)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -45</button>
-<button class="option" data-choice="B">B. 45</button>
-<button class="option" data-choice="C">C. -3</button>
-<button class="option" data-choice="D">D. 3</button>
-
-  </div>
-  <details><summary>提示</summary>先算中括號。</details>
-  <div class="explanation"><b>詳解：</b>(-48)÷6=-8，-8-7=-15。(-15)×(-3)=45。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 10 題</span>
-    <span class="q-meta">第7章｜分配律</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">64 × (-7) + 36 × (-7)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -700</button>
-<button class="option" data-choice="B">B. -448</button>
-<button class="option" data-choice="C">C. 700</button>
-<button class="option" data-choice="D">D. 196</button>
-
-  </div>
-  <details><summary>提示</summary>兩項都有共同因數 -7。</details>
-  <div class="explanation"><b>詳解：</b>(64+36)×(-7)=100×(-7)=-700。</div>
-</section>
-
-<section class="question" data-answer="B">
-  <div class="q-head">
-    <span class="qno">第 11 題</span>
-    <span class="q-meta">第7章｜分數四則</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">1/2 + 3/4 - 5/8</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 3/8</button>
-<button class="option" data-choice="B">B. 5/8</button>
-<button class="option" data-choice="C">C. 7/8</button>
-<button class="option" data-choice="D">D. 9/8</button>
-
-  </div>
-  <details><summary>提示</summary>全部通分成分母 8。</details>
-  <div class="explanation"><b>詳解：</b>1/2=4/8，3/4=6/8，所以 4/8+6/8-5/8=5/8。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 12 題</span>
-    <span class="q-meta">第7章｜分數乘除</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">3/5 ÷ (-9/10) × 6</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -4</button>
-<button class="option" data-choice="B">B. -2/5</button>
-<button class="option" data-choice="C">C. 4</button>
-<button class="option" data-choice="D">D. 2/5</button>
-
-  </div>
-  <details><summary>提示</summary>除以分數等於乘以倒數。</details>
-  <div class="explanation"><b>詳解：</b>3/5÷(-9/10)=3/5×(-10/9)=-2/3；再乘以 6 得 -4。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 13 題</span>
-    <span class="q-meta">第7章｜帶分數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">2 1/3 - 1 5/6</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 1/2</button>
-<button class="option" data-choice="B">B. 2/3</button>
-<button class="option" data-choice="C">C. 5/6</button>
-<button class="option" data-choice="D">D. 1 1/2</button>
-
-  </div>
-  <details><summary>提示</summary>先改成假分數或把整數與分數分開算。</details>
-  <div class="explanation"><b>詳解：</b>2 1/3=14/6，1 5/6=11/6，所以 14/6-11/6=3/6=1/2。</div>
-</section>
-
-<section class="question" data-answer="C">
-  <div class="q-head">
-    <span class="qno">第 14 題</span>
-    <span class="q-meta">第7章｜分數與指數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">1/(-3)^2 - 4/(-3)^3</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -1/27</button>
-<button class="option" data-choice="B">B. 1/27</button>
-<button class="option" data-choice="C">C. 7/27</button>
-<button class="option" data-choice="D">D. 5/9</button>
-
-  </div>
-  <details><summary>提示</summary>先算次方，注意奇次方是負數，偶次方是正數。</details>
-  <div class="explanation"><b>詳解：</b>(-3)^2=9，(-3)^3=-27，所以 1/9-4/(-27)=1/9+4/27=7/27。</div>
-</section>
-
-<section class="question" data-answer="C">
-  <div class="q-head">
-    <span class="qno">第 15 題</span>
-    <span class="q-meta">第7章｜小數與分數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">0.25 × (-12) + 1/2 × 10</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -8</button>
-<button class="option" data-choice="B">B. -3</button>
-<button class="option" data-choice="C">C. 2</button>
-<button class="option" data-choice="D">D. 8</button>
-
-  </div>
-  <details><summary>提示</summary>0.25 可以看成 1/4。</details>
-  <div class="explanation"><b>詳解：</b>0.25×(-12)=-3，1/2×10=5，所以 -3+5=2。</div>
-</section>
-
-<section class="question" data-answer="B">
-  <div class="q-head">
-    <span class="qno">第 16 題</span>
-    <span class="q-meta">第7章｜括號與分數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">(3/4 - 5/6) ÷ (-1/12)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -1</button>
-<button class="option" data-choice="B">B. 1</button>
-<button class="option" data-choice="C">C. -7</button>
-<button class="option" data-choice="D">D. 7</button>
-
-  </div>
-  <details><summary>提示</summary>先算括號，通分成分母 12。</details>
-  <div class="explanation"><b>詳解：</b>3/4=9/12，5/6=10/12，括號內為 -1/12；(-1/12)÷(-1/12)=1。</div>
-</section>
-
-<section class="question" data-answer="B">
-  <div class="q-head">
-    <span class="qno">第 17 題</span>
-    <span class="q-meta">第7章｜絕對值與分數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">|-3/4| + |-5/6| - 1/2</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 7/12</button>
-<button class="option" data-choice="B">B. 13/12</button>
-<button class="option" data-choice="C">C. -7/12</button>
-<button class="option" data-choice="D">D. 1/12</button>
-
-  </div>
-  <details><summary>提示</summary>絕對值會把負分數變成正分數。</details>
-  <div class="explanation"><b>詳解：</b>3/4+5/6-1/2=9/12+10/12-6/12=13/12。</div>
-</section>
-
-<section class="question" data-answer="B">
-  <div class="q-head">
-    <span class="qno">第 18 題</span>
-    <span class="q-meta">第7章｜綜合運算</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">24 ÷ [3 × (-2) + 10]</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 4</button>
-<button class="option" data-choice="B">B. 6</button>
-<button class="option" data-choice="C">C. -4</button>
-<button class="option" data-choice="D">D. -6</button>
-
-  </div>
-  <details><summary>提示</summary>先算中括號，注意 3×(-2) 是負數。</details>
-  <div class="explanation"><b>詳解：</b>3×(-2)=-6，中括號為 -6+10=4。24÷4=6。</div>
-</section>
-
-<section class="question" data-answer="A">
-  <div class="q-head">
-    <span class="qno">第 19 題</span>
-    <span class="q-meta">第7章｜分配律與小數</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">18.6 × (-5/3) + 12.6 × (5/3)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. -10</button>
-<button class="option" data-choice="B">B. -8</button>
-<button class="option" data-choice="C">C. 8</button>
-<button class="option" data-choice="D">D. 10</button>
-
-  </div>
-  <details><summary>提示</summary>把 5/3 提出來，第一項是負的。</details>
-  <div class="explanation"><b>詳解：</b>(5/3)×(-18.6+12.6)=(5/3)×(-6)=-10。</div>
-</section>
-
-<section class="question" data-answer="C">
-  <div class="q-head">
-    <span class="qno">第 20 題</span>
-    <span class="q-meta">第7章｜模擬挑戰</span>
-  </div>
-  <div class="qtext">計算下列式子的值：</div>
-  <div class="math">|(-4)^2 - 5^2| + [(-18) ÷ 3] × (-2)</div>
-  <div class="options">
-    <button class="option" data-choice="A">A. 3</button>
-<button class="option" data-choice="B">B. 9</button>
-<button class="option" data-choice="C">C. 21</button>
-<button class="option" data-choice="D">D. 33</button>
-
-  </div>
-  <details><summary>提示</summary>先算指數與絕對值，再算中括號乘法。</details>
-  <div class="explanation"><b>詳解：</b>|16-25|=9；(-18)÷3=-6，(-6)×(-2)=12；9+12=21。</div>
-</section>
-
+  <section class="section-title">
+    <h2 id="practiceTitle">第 7 週｜長式子的四則運算</h2>
+    <span class="score" id="practiceMeta">20 題</span>
+  </section>
+  <div id="questionList"></div>
 </main>
 
-<footer>版型用途：每週練習、多章節複習與模擬考都可沿用。</footer>
+<footer>之後新增章節時，只要把題目加入題庫，就能自動出現在章節選擇與混合練習中。</footer>
 
 <script>
-const questions = document.querySelectorAll('.question');
+const chapters = [
+  { id:"w1", week:"第 1 週", date:"4/11", title:"正數與負數" },
+  { id:"w2", week:"第 2 週", date:"4/18", title:"指數律與科學記號" },
+  { id:"w3", week:"第 3 週", date:"4/25", title:"分數的乘除與小數的除法" },
+  { id:"w4", week:"第 4 週", date:"5/02", title:"四則運算" },
+  { id:"w5", week:"第 5 週", date:"5/09", title:"簡化計算（上）" },
+  { id:"w6", week:"第 6 週", date:"5/16", title:"簡化計算（下）" },
+  { id:"w7", week:"第 7 週", date:"5/23", title:"長式子的四則運算" },
+  { id:"w8", week:"第 8 週", date:"5/30", title:"周長、面積、表面積" },
+  { id:"w9", week:"第 9 週", date:"6/06", title:"三角形與多邊形" },
+  { id:"w10", week:"第 10 週", date:"6/13", title:"平行與四邊形" },
+  { id:"w11", week:"第 11 週", date:"6/27", title:"一次式的值與化簡" },
+  { id:"w12", week:"第 12 週", date:"6/29", title:"二元一次方程式" },
+  { id:"w13", week:"第 13 週", date:"7/11", title:"一元一次方程式並求解" },
+  { id:"w14", week:"第 14 週", date:"7/18", title:"因數與倍數" },
+  { id:"w15", week:"第 15 週", date:"7/20", title:"特殊倍數與質數、質因數" },
+  { id:"w16", week:"第 16 週", date:"7/25", title:"最大公因數" },
+  { id:"w17", week:"第 17 週", date:"8/01", title:"最小公倍數" },
+  { id:"w18", week:"第 18 週", date:"8/08", title:"圓與扇形" }
+];
 
-function updateScore() {
-  let answered = 0;
-  let correct = 0;
-  questions.forEach(q => {
-    if (q.dataset.answered === "true") {
-      answered++;
-      if (q.dataset.correct === "true") correct++;
-    }
-  });
-  document.getElementById('score').textContent = `已答 ${answered} / ${questions.length}，答對 ${correct} 題`;
+const questionBank = [
+  { id:"w7-q1", chapter:"w7", topic:"整數四則", text:"計算下列式子的值：", math:"(-6) × [8 - 3 × (5 - 9)]", options:{ A:"-120", B:"-72", C:"72", D:"120" }, answer:"A", hint:"先算小括號，再算中括號，最後乘以 -6。", explanation:"5-9=-4，3×(-4)=-12，所以中括號為 8-(-12)=20。最後 (-6)×20=-120。" },
+  { id:"w7-q2", chapter:"w7", topic:"括號運算", text:"計算下列式子的值：", math:"48 - [(-18) + 6 × (-5)]", options:{ A:"0", B:"36", C:"96", D:"-96" }, answer:"C", hint:"中括號內先乘除後加減。", explanation:"6×(-5)=-30，中括號內為 -18+(-30)=-48。原式 48-(-48)=96。" },
+  { id:"w7-q3", chapter:"w7", topic:"絕對值", text:"計算下列式子的值：", math:"|(-4) × (3 - 11)| - |(-6) × 5|", options:{ A:"2", B:"12", C:"32", D:"62" }, answer:"A", hint:"絕對值內先算完，再把結果變成非負數。", explanation:"3-11=-8，(-4)×(-8)=32；|(-6)×5|=30，所以 32-30=2。" },
+  { id:"w7-q4", chapter:"w7", topic:"公因數簡化", text:"計算下列式子的值：", math:"35 × (-8) + 15 × (-8)", options:{ A:"-160", B:"-280", C:"-400", D:"400" }, answer:"C", hint:"可以提出共同的 (-8)。", explanation:"(35+15)×(-8)=50×(-8)=-400。" },
+  { id:"w7-q5", chapter:"w7", topic:"絕對值與乘法", text:"計算下列式子的值：", math:"|-7 × (4 - 10)| + 6 × (-8)", options:{ A:"-6", B:"6", C:"-90", D:"90" }, answer:"A", hint:"絕對值先處理，再和後面的負數相加。", explanation:"4-10=-6，-7×(-6)=42，6×(-8)=-48，所以 42+(-48)=-6。" },
+  { id:"w7-q6", chapter:"w7", topic:"指數", text:"計算下列式子的值：", math:"(-2)^4 - 3^2 × 2", options:{ A:"-2", B:"2", C:"14", D:"34" }, answer:"A", hint:"先算指數，再做乘法。", explanation:"(-2)^4=16，3^2×2=18，所以 16-18=-2。" },
+  { id:"w7-q7", chapter:"w7", topic:"指數與負號", text:"計算下列式子的值：", math:"-3^2 + (-3)^2 + 4", options:{ A:"-14", B:"-4", C:"4", D:"13" }, answer:"C", hint:"-3^2 是 -(3^2)，而 (-3)^2 是把 -3 整個平方。", explanation:"-3^2=-9，(-3)^2=9，所以 -9+9+4=4。" },
+  { id:"w7-q8", chapter:"w7", topic:"中括號", text:"計算下列式子的值：", math:"36 - [(-2)^3 × 5 + 60 ÷ 3]", options:{ A:"56", B:"40", C:"-24", D:"24" }, answer:"A", hint:"中括號內的指數、乘除先算。", explanation:"(-2)^3=-8，(-8)×5=-40，60÷3=20；中括號為 -20，36-(-20)=56。" },
+  { id:"w7-q9", chapter:"w7", topic:"除法與負數", text:"計算下列式子的值：", math:"[(-48) ÷ 6 - 7] × (-3)", options:{ A:"-45", B:"45", C:"-3", D:"3" }, answer:"B", hint:"先算中括號。", explanation:"(-48)÷6=-8，-8-7=-15。(-15)×(-3)=45。" },
+  { id:"w7-q10", chapter:"w7", topic:"分配律", text:"計算下列式子的值：", math:"64 × (-7) + 36 × (-7)", options:{ A:"-700", B:"-448", C:"700", D:"196" }, answer:"A", hint:"兩項都有共同因數 -7。", explanation:"(64+36)×(-7)=100×(-7)=-700。" },
+  { id:"w7-q11", chapter:"w7", topic:"分數四則", text:"計算下列式子的值：", math:"1/2 + 3/4 - 5/8", options:{ A:"3/8", B:"5/8", C:"7/8", D:"9/8" }, answer:"B", hint:"全部通分成分母 8。", explanation:"1/2=4/8，3/4=6/8，所以 4/8+6/8-5/8=5/8。" },
+  { id:"w7-q12", chapter:"w7", topic:"分數乘除", text:"計算下列式子的值：", math:"3/5 ÷ (-9/10) × 6", options:{ A:"-4", B:"-2/5", C:"4", D:"2/5" }, answer:"A", hint:"除以分數等於乘以倒數。", explanation:"3/5÷(-9/10)=3/5×(-10/9)=-2/3；再乘以 6 得 -4。" },
+  { id:"w7-q13", chapter:"w7", topic:"帶分數", text:"計算下列式子的值：", math:"2 1/3 - 1 5/6", options:{ A:"1/2", B:"2/3", C:"5/6", D:"1 1/2" }, answer:"A", hint:"先改成假分數或把整數與分數分開算。", explanation:"2 1/3=14/6，1 5/6=11/6，所以 14/6-11/6=3/6=1/2。" },
+  { id:"w7-q14", chapter:"w7", topic:"分數與指數", text:"計算下列式子的值：", math:"1/(-3)^2 - 4/(-3)^3", options:{ A:"-1/27", B:"1/27", C:"7/27", D:"5/9" }, answer:"C", hint:"先算次方，注意奇次方是負數，偶次方是正數。", explanation:"(-3)^2=9，(-3)^3=-27，所以 1/9-4/(-27)=1/9+4/27=7/27。" },
+  { id:"w7-q15", chapter:"w7", topic:"小數與分數", text:"計算下列式子的值：", math:"0.25 × (-12) + 1/2 × 10", options:{ A:"-8", B:"-3", C:"2", D:"8" }, answer:"C", hint:"0.25 可以看成 1/4。", explanation:"0.25×(-12)=-3，1/2×10=5，所以 -3+5=2。" },
+  { id:"w7-q16", chapter:"w7", topic:"括號與分數", text:"計算下列式子的值：", math:"(3/4 - 5/6) ÷ (-1/12)", options:{ A:"-1", B:"1", C:"-7", D:"7" }, answer:"B", hint:"先算括號，通分成分母 12。", explanation:"3/4=9/12，5/6=10/12，括號內為 -1/12；(-1/12)÷(-1/12)=1。" },
+  { id:"w7-q17", chapter:"w7", topic:"絕對值與分數", text:"計算下列式子的值：", math:"|-3/4| + |-5/6| - 1/2", options:{ A:"7/12", B:"13/12", C:"-7/12", D:"1/12" }, answer:"B", hint:"絕對值會把負分數變成正分數。", explanation:"3/4+5/6-1/2=9/12+10/12-6/12=13/12。" },
+  { id:"w7-q18", chapter:"w7", topic:"綜合運算", text:"計算下列式子的值：", math:"24 ÷ [3 × (-2) + 10]", options:{ A:"4", B:"6", C:"-4", D:"-6" }, answer:"B", hint:"先算中括號，注意 3×(-2) 是負數。", explanation:"3×(-2)=-6，中括號為 -6+10=4。24÷4=6。" },
+  { id:"w7-q19", chapter:"w7", topic:"分配律與小數", text:"計算下列式子的值：", math:"18.6 × (-5/3) + 12.6 × (5/3)", options:{ A:"-10", B:"-8", C:"8", D:"10" }, answer:"A", hint:"把 5/3 提出來，第一項是負的。", explanation:"(5/3)×(-18.6+12.6)=(5/3)×(-6)=-10。" },
+  { id:"w7-q20", chapter:"w7", topic:"模擬挑戰", text:"計算下列式子的值：", math:"|(-4)^2 - 5^2| + [(-18) ÷ 3] × (-2)", options:{ A:"3", B:"9", C:"21", D:"33" }, answer:"C", hint:"先算指數與絕對值，再算中括號乘法。", explanation:"|16-25|=9；(-18)÷3=-6，(-6)×(-2)=12；9+12=21。" }
+];
+
+const state = {
+  selectedChapters:new Set(["w7"]),
+  currentQuestions:[],
+  answers:{},
+  mode:"practice",
+  submitted:false
+};
+
+const wrongStorageKey = "liviaMathWrongQuestionIds";
+
+function getChapter(id) {
+  return chapters.find(chapter => chapter.id === id);
 }
 
-questions.forEach(q => {
-  q.dataset.answered = "false";
-  q.dataset.correct = "false";
-  q.querySelectorAll('.option').forEach(btn => {
-    btn.addEventListener('click', () => {
-      if (q.dataset.answered === "true") return;
-      const answer = q.dataset.answer;
-      const choice = btn.dataset.choice;
-      const explanation = q.querySelector('.explanation');
-      q.dataset.answered = "true";
-      q.dataset.correct = choice === answer ? "true" : "false";
+function getQuestionCount(chapterId) {
+  return questionBank.filter(question => question.chapter === chapterId).length;
+}
 
-      q.querySelectorAll('.option').forEach(opt => {
-        opt.disabled = true;
-        if (opt.dataset.choice === answer) opt.classList.add('correct');
-      });
+function getWrongIds() {
+  try {
+    return new Set(JSON.parse(localStorage.getItem(wrongStorageKey) || "[]"));
+  } catch {
+    return new Set();
+  }
+}
 
-      const mark = document.createElement('div');
-      if (choice === answer) {
-        mark.className = 'result good';
-        mark.textContent = '答對了！';
-      } else {
-        btn.classList.add('wrong');
-        mark.className = 'result bad';
-        mark.textContent = '答錯了，綠色選項是正確答案。';
-      }
-      explanation.before(mark);
-      explanation.classList.add('show');
-      updateScore();
-    });
-  });
-});
+function saveWrongIds(ids) {
+  localStorage.setItem(wrongStorageKey, JSON.stringify([...ids]));
+}
 
-function resetQuiz() {
-  questions.forEach(q => {
-    q.dataset.answered = "false";
-    q.dataset.correct = "false";
-    q.querySelectorAll('.option').forEach(opt => {
-      opt.disabled = false;
-      opt.classList.remove('correct', 'wrong');
-    });
-    q.querySelector('.explanation').classList.remove('show');
-    q.querySelectorAll('.result').forEach(r => r.remove());
-  });
+function rememberWrong(questionId, isCorrect) {
+  const wrongIds = getWrongIds();
+  if (isCorrect) wrongIds.delete(questionId);
+  else wrongIds.add(questionId);
+  saveWrongIds(wrongIds);
+}
+
+function renderChapters() {
+  const grid = document.getElementById("chapterGrid");
+  grid.innerHTML = chapters.map(chapter => {
+    const count = getQuestionCount(chapter.id);
+    const selected = state.selectedChapters.has(chapter.id);
+    return `
+      <button type="button" class="chapter-card ${selected ? "selected" : ""} ${count ? "" : "empty"}" data-chapter="${chapter.id}" onclick="toggleChapter('${chapter.id}')">
+        <div class="chapter-top"><span>${chapter.week}</span><span>${chapter.date}</span></div>
+        <div class="chapter-title">${chapter.title}</div>
+        <div class="chapter-count">${count ? `${count} 題可練習` : "題目建置中"}</div>
+      </button>
+    `;
+  }).join("");
+  updateSetupStatus();
+}
+
+function toggleChapter(chapterId) {
+  if (state.selectedChapters.has(chapterId)) state.selectedChapters.delete(chapterId);
+  else state.selectedChapters.add(chapterId);
+  renderChapters();
+}
+
+function selectAvailableChapters() {
+  state.selectedChapters = new Set(chapters.filter(chapter => getQuestionCount(chapter.id) > 0).map(chapter => chapter.id));
+  renderChapters();
+}
+
+function clearChapters() {
+  state.selectedChapters.clear();
+  renderChapters();
+}
+
+function getSelectedAmount() {
+  return document.querySelector("input[name='amount']:checked").value;
+}
+
+function getSelectedMode() {
+  return document.querySelector("input[name='mode']:checked").value;
+}
+
+function updateSetupStatus() {
+  const selectedChapters = chapters.filter(chapter => state.selectedChapters.has(chapter.id));
+  const selectedNames = selectedChapters.map(chapter => chapter.week).join("、") || "尚未選擇";
+  const amount = getSelectedAmount();
+  const mode = getSelectedMode();
+  const bankCount = questionBank.length;
+  const availableChapters = chapters.filter(chapter => getQuestionCount(chapter.id) > 0).map(chapter => chapter.week).join("、");
+  const selectedQuestionCount = questionBank.filter(question => state.selectedChapters.has(question.chapter)).length;
+  const notice = document.getElementById("chapterNotice");
+
+  document.getElementById("bankStatus").textContent = `${availableChapters}｜${bankCount} 題`;
+  document.getElementById("chapterStatus").textContent = selectedNames;
+  document.getElementById("amountStatus").textContent = amount === "all" ? "全部" : `${amount} 題`;
+  document.getElementById("modeStatus").textContent = mode === "practice" ? "練習模式" : mode === "quiz" ? "小考模式" : "錯題複習";
+
+  if (!state.selectedChapters.size) {
+    notice.hidden = false;
+    notice.textContent = "請先選擇至少一個章節。";
+  } else if (!selectedQuestionCount) {
+    notice.hidden = false;
+    notice.textContent = "目前選到的章節還沒有題目，可以先選第 7 週練習。";
+  } else {
+    notice.hidden = true;
+    notice.textContent = "";
+  }
+}
+
+function shuffle(items) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function generatePractice() {
+  state.mode = getSelectedMode();
+  state.submitted = false;
+  state.answers = {};
+  let candidates = questionBank.filter(question => state.selectedChapters.has(question.chapter));
+
+  if (state.mode === "wrong") {
+    const wrongIds = getWrongIds();
+    candidates = candidates.filter(question => wrongIds.has(question.id));
+  }
+
+  const amount = getSelectedAmount();
+  const picked = amount === "all" ? shuffle(candidates) : shuffle(candidates).slice(0, Number(amount));
+  state.currentQuestions = picked;
+  renderPractice();
+  updateSetupStatus();
+  window.scrollTo({ top:document.querySelector(".toolbar").offsetTop, behavior:"smooth" });
+}
+
+function renderPractice() {
+  const list = document.getElementById("questionList");
+  const title = document.getElementById("practiceTitle");
+  const meta = document.getElementById("practiceMeta");
+  const submitButton = document.getElementById("submitQuizBtn");
+
+  submitButton.hidden = state.mode !== "quiz" || !state.currentQuestions.length || state.submitted;
+
+  if (!state.currentQuestions.length) {
+    title.textContent = state.mode === "wrong" ? "錯題複習" : "尚未產生題目";
+    meta.textContent = "0 題";
+    list.innerHTML = `<div class="notice">${state.mode === "wrong" ? "目前沒有符合條件的錯題紀錄。答錯的題目會自動收進這裡。" : "目前沒有可產生的題目，請改選有題目的章節。"}</div>`;
+    updateScore();
+    return;
+  }
+
+  const selectedChapterNames = [...new Set(state.currentQuestions.map(question => getChapter(question.chapter).week))].join("、");
+  title.textContent = `${selectedChapterNames}｜練習題`;
+  meta.textContent = `${state.currentQuestions.length} 題`;
+  list.innerHTML = state.currentQuestions.map((question, index) => renderQuestion(question, index)).join("");
   updateScore();
-  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function renderQuestion(question, index) {
+  const chapter = getChapter(question.chapter);
+  const selected = state.answers[question.id];
+  const reveal = (state.mode === "practice" || state.mode === "wrong") && selected || state.submitted;
+  const isCorrect = selected === question.answer;
+  const result = reveal && selected
+    ? `<div class="result ${isCorrect ? "good" : "bad"}">${isCorrect ? "答對了！" : "答錯了，綠色選項是正確答案。"}</div>`
+    : "";
+  const optionHtml = Object.entries(question.options).map(([choice, label]) => {
+    const classes = ["option"];
+    if (selected === choice && !reveal) classes.push("selected");
+    if (reveal && choice === question.answer) classes.push("correct");
+    if (reveal && selected === choice && choice !== question.answer) classes.push("wrong");
+    const disabled = reveal && state.mode !== "quiz" ? "disabled" : "";
+    return `<button type="button" class="${classes.join(" ")}" data-choice="${choice}" onclick="chooseAnswer('${question.id}','${choice}')" ${disabled}>${choice}. ${label}</button>`;
+  }).join("");
+
+  return `
+    <section class="question" data-question="${question.id}">
+      <div class="q-head">
+        <span class="qno">第 ${index + 1} 題</span>
+        <span class="q-meta">${chapter.week}｜${question.topic}</span>
+      </div>
+      <div class="qtext">${question.text}</div>
+      <div class="math">${question.math}</div>
+      <div class="options">${optionHtml}</div>
+      <details><summary>提示</summary>${question.hint}</details>
+      ${result}
+      <div class="explanation ${reveal ? "show" : ""}"><b>詳解：</b>${question.explanation}</div>
+    </section>
+  `;
+}
+
+function chooseAnswer(questionId, choice) {
+  if (state.mode === "practice" && state.answers[questionId]) return;
+  if (state.submitted) return;
+  state.answers[questionId] = choice;
+
+  const question = questionBank.find(item => item.id === questionId);
+  if (state.mode !== "quiz") {
+    rememberWrong(questionId, choice === question.answer);
+  }
+
+  renderPractice();
+}
+
+function submitQuiz() {
+  state.submitted = true;
+  state.currentQuestions.forEach(question => {
+    if (state.answers[question.id]) {
+      rememberWrong(question.id, state.answers[question.id] === question.answer);
+    }
+  });
+  renderPractice();
+}
+
+function updateScore() {
+  const answered = state.currentQuestions.filter(question => state.answers[question.id]).length;
+  const correct = state.currentQuestions.filter(question => state.answers[question.id] === question.answer).length;
+  const total = state.currentQuestions.length;
+  const suffix = state.mode === "quiz" && !state.submitted ? "，小考模式交卷後顯示詳解" : "";
+  document.getElementById("score").textContent = total ? `已答 ${answered} / ${total}，答對 ${correct} 題${suffix}` : "尚未產生題目";
+}
+
+function restartCurrentPractice() {
+  state.answers = {};
+  state.submitted = false;
+  renderPractice();
+  window.scrollTo({ top:document.querySelector(".toolbar").offsetTop, behavior:"smooth" });
 }
 
 function expandHints() {
-  document.querySelectorAll('details').forEach(d => d.open = true);
+  document.querySelectorAll("details").forEach(detail => detail.open = true);
 }
 
 function collapseHints() {
-  document.querySelectorAll('details').forEach(d => d.open = false);
+  document.querySelectorAll("details").forEach(detail => detail.open = false);
 }
 
-updateScore();
+function resetWrongBank() {
+  localStorage.removeItem(wrongStorageKey);
+  if (state.mode === "wrong") {
+    generatePractice();
+  }
+}
+
+document.querySelectorAll("input[name='amount'], input[name='mode']").forEach(input => {
+  input.addEventListener("change", updateSetupStatus);
+});
+
+renderChapters();
+generatePractice();
 </script>
 </body>
 </html>
