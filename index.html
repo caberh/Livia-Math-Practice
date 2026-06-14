@@ -365,7 +365,111 @@ let currentQuestions=[];
 let currentMode="practice";
 let parentReview=false;
 const $=id=>document.getElementById(id);
-const labelMap={basic:"基礎",medium:"中等應用",advanced:"進階應用",application:"應用題"};
+const w10DiagramStyle='<defs><style>.o{fill:#fff;stroke:#222;stroke-width:2.2}.g{fill:#eef4f1;stroke:#222;stroke-width:2}.l{stroke:#222;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}.d{stroke:#777;stroke-width:1.5;stroke-dasharray:5 5;fill:none}.t{font:16px sans-serif;fill:#222}.s{font:13px sans-serif;fill:#222}.b{font:15px sans-serif;font-weight:700;fill:#222}</style></defs>';
+function w10Svg(caption,body){
+  return '<svg class="diagram" viewBox="0 0 420 260" role="img" aria-label="題目圖形" xmlns="http://www.w3.org/2000/svg">'+w10DiagramStyle+body+'<text class="b" x="210" y="248" text-anchor="middle">'+caption+'</text></svg>';
+}
+function w10ParallelSvg(caption){
+  return w10Svg(caption,'<line class="l" x1="55" y1="78" x2="365" y2="78"/><line class="l" x1="55" y1="178" x2="365" y2="178"/><line class="l" x1="145" y1="32" x2="245" y2="220"/><line class="l" x1="270" y1="35" x2="185" y2="220"/><text class="t" x="345" y="68">L</text><text class="t" x="345" y="168">M</text><text class="s" x="135" y="100">1</text><text class="s" x="215" y="164">2</text><text class="s" x="282" y="100">3</text><text class="s" x="178" y="198">x</text>');
+}
+function w10ZigSvg(caption){
+  return w10Svg(caption,'<line class="l" x1="55" y1="55" x2="365" y2="55"/><line class="l" x1="55" y1="205" x2="365" y2="205"/><polyline class="l" points="120,55 190,112 235,112 305,205"/><text class="t" x="348" y="47">L</text><text class="t" x="348" y="197">M</text><text class="s" x="105" y="78">a</text><text class="s" x="205" y="103">x</text><text class="s" x="288" y="195">b</text>');
+}
+function w10ParaSvg(caption){
+  return w10Svg(caption,'<polygon class="o" points="95,195 285,195 335,65 145,65"/><line class="l" x1="95" y1="195" x2="335" y2="65"/><line class="d" x1="145" y1="65" x2="285" y2="195"/><text class="t" x="138" y="55">A</text><text class="t" x="72" y="212">B</text><text class="t" x="290" y="215">C</text><text class="t" x="340" y="62">D</text><text class="s" x="210" y="118">x</text>');
+}
+function w10QuadSvg(caption){
+  return w10Svg(caption,'<polygon class="o" points="210,35 335,130 210,225 85,130"/><line class="l" x1="210" y1="35" x2="210" y2="225"/><line class="l" x1="85" y1="130" x2="335" y2="130"/><path class="d" d="M203 130 h14 v14"/><text class="t" x="205" y="28">A</text><text class="t" x="63" y="135">B</text><text class="t" x="205" y="245">C</text><text class="t" x="342" y="135">D</text><text class="s" x="224" y="122">O</text>');
+}
+function w10AreaSvg(caption){
+  return w10Svg(caption,'<polygon class="o" points="80,200 285,200 345,60 140,60"/><circle class="g" cx="205" cy="132" r="4"/><line class="l" x1="205" y1="132" x2="140" y2="60"/><line class="l" x1="205" y1="132" x2="80" y2="200"/><line class="l" x1="205" y1="132" x2="285" y2="200"/><line class="l" x1="205" y1="132" x2="345" y2="60"/><text class="t" x="132" y="52">A</text><text class="t" x="58" y="218">B</text><text class="t" x="290" y="218">C</text><text class="t" x="350" y="58">D</text><text class="s" x="212" y="128">P</text>');
+}
+function w10FoldSvg(caption){
+  return w10Svg(caption,'<polygon class="o" points="90,70 310,70 310,210 90,210"/><polyline class="d" points="90,210 175,75 310,210"/><line class="l" x1="90" y1="210" x2="235" y2="105"/><line class="l" x1="235" y1="105" x2="310" y2="210"/><text class="t" x="78" y="65">A</text><text class="t" x="315" y="65">D</text><text class="t" x="76" y="230">B</text><text class="t" x="315" y="230">C</text><text class="s" x="185" y="92">fold</text>');
+}
+function w10ClassSvg(caption){
+  return w10Svg(caption,'<ellipse class="o" cx="210" cy="128" rx="150" ry="86"/><ellipse class="g" cx="210" cy="128" rx="108" ry="58"/><ellipse class="o" cx="174" cy="128" rx="57" ry="34"/><ellipse class="o" cx="246" cy="128" rx="57" ry="34"/><text class="s" x="86" y="128">平行四邊形</text><text class="s" x="153" y="132">菱形</text><text class="s" x="228" y="132">長方形</text><text class="s" x="195" y="104">正方形</text>');
+}
+function w10Options(a,b,c,d){return {A:a,B:b,C:c,D:d}}
+function w10Question(n,level,difficulty,topic,text,options,answer,hint,explanation,diagramSvg,math){
+  return {id:'w10-q'+String(n).padStart(3,'0'),chapterId:'w10',level,topic,questionType:diagramSvg?'diagram':'text',text,math:math||'',options,answer,hint,explanation,displayId:'W10-Q'+String(n).padStart(3,'0'),difficulty,diagramSvg};
+}
+questionBank.push(
+w10Question(1,'basic','basic','平行線：同位角','L、M 互相平行，一條截線形成同位角。若已知角為 64°，求圖中的 x。',w10Options('64°','116°','54°','126°'),'A','平行線被同一條截線切過時，同位角相等。','因為 L 平行 M，圖中的 x 和 64° 是同位角，所以 x=64°。',w10ParallelSvg('同位角相等')),
+w10Question(2,'basic','basic','平行線：內錯角','L、M 互相平行，已知一個內錯角為 73°，求圖中的 x。',w10Options('107°','83°','73°','117°'),'C','先找出 Z 字形的位置；平行線中的內錯角相等。','x 與 73° 是內錯角，所以 x=73°。',w10ParallelSvg('內錯角相等')),
+w10Question(3,'basic','basic','平行線：同側內角','L、M 互相平行，已知同側內角之一為 118°，求另一個同側內角 x。',w10Options('52°','62°','72°','118°'),'B','同側內角在平行線中互補，也就是相加為 180°。','x=180°-118°=62°。',w10ParallelSvg('同側內角互補')),
+w10Question(4,'basic','basic','對頂角與平行線','兩條平行線被截線切過，其中一個對頂角為 52°，求對應到下方的 x。',w10Options('38°','128°','52°','142°'),'C','先用對頂角相等，再用平行線的同位角或內錯角。','對頂角相等得到上方對應角也是 52°；平行線對應到下方仍為 52°，所以 x=52°。',w10ParallelSvg('對頂角 + 平行線')),
+w10Question(5,'basic','basic','外角與同側內角','L、M 互相平行，某外角為 41°，求同側內角 x。',w10Options('41°','139°','129°','49°'),'B','外角和鄰近內角會成一直線，先補成 180°。','x=180°-41°=139°。',w10ParallelSvg('外角先轉內角')),
+w10Question(6,'basic','basic','折線與平行線','兩條平行線間有一條折線，上方夾角 36°、下方夾角 49°，求折點角 x。',w10Options('75°','85°','95°','103°'),'B','折線在兩平行線中間時，可過折點作一條平行線，把角分成兩段。','過折點作平行線後，兩段分別是 36° 和 49°，所以 x=36°+49°=85°。',w10ZigSvg('折點角 = 36°+49°')),
+w10Question(7,'basic','basic','折線與平行線','兩條平行線間有一條折線，上方夾角 28°、下方夾角 57°，求折點角 x。',w10Options('85°','95°','75°','29°'),'A','過折點作一條與上下兩線平行的輔助線。','x=28°+57°=85°。',w10ZigSvg('輔助平行線拆角')),
+w10Question(8,'basic','basic','平行線中的折返角','折線夾在兩條平行線間，兩端分別與平行線成 32°、46°，求中間轉角 x。',w10Options('68°','78°','88°','102°'),'B','把中間轉角看成兩個內錯角的和。','過折點作平行線，兩段角為 32° 和 46°，所以 x=78°。',w10ZigSvg('兩端角相加')),
+w10Question(9,'basic','basic','三角形與平行線','圖中上、下兩線平行，三角形一個角為 70°，另一個由平行線得到 38°，求第三角 x。',w10Options('72°','82°','62°','108°'),'A','先用平行線找出三角形內的角，再用三角形內角和。','x=180°-70°-38°=72°。',w10ParallelSvg('平行線 + 三角形內角和')),
+w10Question(10,'basic','basic','平行線追角','兩條平行線間形成一個小三角形，已知兩個角為 55°、63°，求第三角 x。',w10Options('52°','62°','72°','118°'),'B','這題最後會回到三角形內角和。','x=180°-55°-63°=62°。',w10ParallelSvg('追到三角形')),
+w10Question(11,'basic','basic','平行四邊形角度','平行四邊形 ABCD 中，若 ∠A=68°，求 ∠C。',w10Options('68°','112°','102°','58°'),'A','平行四邊形的對角相等。','∠A 和 ∠C 是對角，所以 ∠C=68°。',w10ParaSvg('對角相等')),
+w10Question(12,'basic','basic','平行四邊形角度','平行四邊形 ABCD 中，若 ∠B=121°，求 ∠A。',w10Options('49°','59°','69°','121°'),'B','平行四邊形的鄰角互補。','∠A+∠B=180°，所以 ∠A=180°-121°=59°。',w10ParaSvg('鄰角互補')),
+w10Question(13,'basic','basic','平行四邊形邊長','平行四邊形 ABCD 中，AB=7、BC=11，求周長。',w10Options('18','29','36','77'),'C','平行四邊形兩組對邊等長。','周長=2×(7+11)=36。',w10ParaSvg('對邊等長')),
+w10Question(14,'basic','basic','平行四邊形邊長','平行四邊形的周長為 54，其中一邊長 12，求鄰邊長。',w10Options('13','15','27','30'),'B','周長的一半等於相鄰兩邊的和。','54÷2=27，鄰邊=27-12=15。',w10ParaSvg('半周長 = 兩鄰邊和')),
+w10Question(15,'basic','basic','對角線分割面積','平行四邊形 ABCD 面積為 42，對角線 AC 把它分成兩個三角形，求 △ABC 面積。',w10Options('14','21','28','42'),'B','平行四邊形的一條對角線會分成兩個等面積三角形。','△ABC 面積=42÷2=21。',w10ParaSvg('對角線平分面積')),
+w10Question(16,'basic','basic','同底等高面積','平行四邊形 ABCD 面積為 64，E 在 AD 上，求 △BCE 的面積。',w10Options('16','32','48','64'),'B','E 在 AD 上，而 AD 平行 BC，所以 △BCE 和平行四邊形同底、同高的一半。','△BCE 面積=64÷2=32。',w10ParaSvg('E 在 AD 上')),
+w10Question(17,'basic','basic','同底等高面積','平行四邊形 ABCD 面積為 90，P 在 AD 上，求 △PBC 面積。',w10Options('30','45','60','90'),'B','P 在 AD 上，P 到 BC 的高等於平行四邊形的高。','△PBC 面積是平行四邊形的一半，所以為 45。',w10ParaSvg('P 在對邊上')),
+w10Question(18,'basic','basic','菱形面積','菱形的兩條對角線長為 10、14，求面積。',w10Options('24','70','140','48'),'B','菱形對角線互相垂直，面積可用兩對角線乘積除以 2。','面積=10×14÷2=70。',w10QuadSvg('菱形對角線面積')),
+w10Question(19,'basic','basic','箏形面積','箏形的兩條對角線互相垂直，長為 8、12，求面積。',w10Options('20','40','48','96'),'C','對角線互相垂直的四邊形，可用兩對角線乘積除以 2。','面積=8×12÷2=48。',w10QuadSvg('箏形面積')),
+w10Question(20,'basic','basic','長方形角度','長方形的一條對角線與底邊夾 37°，求它與側邊的夾角。',w10Options('37°','43°','53°','63°'),'C','長方形的角是 90°，對角線把直角分成兩個互補的小角。','另一角=90°-37°=53°。',w10ParaSvg('長方形直角被分割')),
+w10Question(21,'basic','basic','正方形角度','正方形 ABCD 中，連接對角線 AC，求 ∠BAC。',w10Options('30°','45°','60°','90°'),'B','正方形的對角線會平分直角。','∠BAC=90°÷2=45°。',w10QuadSvg('正方形對角線')),
+w10Question(22,'basic','basic','菱形角度','菱形 ABCD 中，∠A=72°，對角線 AC 平分 ∠A，求 ∠CAD。',w10Options('18°','36°','54°','72°'),'B','菱形的對角線會平分一組對角。','∠CAD=72°÷2=36°。',w10QuadSvg('菱形對角線平分角')),
+w10Question(23,'basic','basic','菱形角度','菱形 ABCD 中，若 ∠A=116°，求 ∠B。',w10Options('54°','64°','74°','116°'),'B','菱形也是平行四邊形，所以鄰角互補。','∠B=180°-116°=64°。',w10ParaSvg('菱形鄰角互補')),
+w10Question(24,'basic','basic','平行四邊形對角線角度','平行四邊形 ABCD 中，AB 平行 CD。若 ∠BAC=31°，求 ∠ACD。',w10Options('31°','59°','90°','149°'),'A','AB 與 CD 平行，AC 是截線，可用內錯角。','∠BAC 和 ∠ACD 是內錯角，所以 ∠ACD=31°。',w10ParaSvg('對角線當截線')),
+w10Question(25,'basic','basic','平行四邊形對角線角度','平行四邊形 ABCD 中，AD 平行 BC。若 ∠CAD=44°，求 ∠ACB。',w10Options('44°','46°','88°','136°'),'A','AD 與 BC 平行，AC 是截線。','∠CAD 和 ∠ACB 是內錯角，所以 ∠ACB=44°。',w10ParaSvg('平行邊 + 對角線')),
+w10Question(26,'basic','basic','外角與平行四邊形','平行四邊形 ABCD 中，A 點的一個外角為 128°，求 ∠C。',w10Options('52°','62°','118°','128°'),'A','外角先轉成內角，再用對角相等。','∠A=180°-128°=52°，而 ∠C=∠A，所以 ∠C=52°。',w10ParaSvg('外角轉內角')),
+w10Question(27,'basic','basic','平行四邊形角度','平行四邊形的一組鄰角相差 40°，求較小的內角。',w10Options('60°','70°','80°','110°'),'B','鄰角和為 180°，又相差 40°。','較小角=(180°-40°)÷2=70°。',w10ParaSvg('鄰角和與差')),
+w10Question(28,'basic','basic','平行四邊形邊長','平行四邊形周長為 50，其中一邊長 9，求另一種邊長。',w10Options('13','16','25','32'),'B','半周長是兩種邊長的和。','50÷2=25，另一邊=25-9=16。',w10ParaSvg('半周長求鄰邊')),
+w10Question(29,'basic','basic','對角線互相平分','平行四邊形 ABCD 的對角線交於 O。若 AO=6，求 AC。',w10Options('6','9','12','18'),'C','平行四邊形的對角線互相平分。','AO=OC=6，所以 AC=12。',w10ParaSvg('對角線互相平分')),
+w10Question(30,'basic','basic','對角線互相平分','平行四邊形 ABCD 的對角線交於 O。若 BO=5，求 BD。',w10Options('5','10','15','20'),'B','O 是對角線的中點。','BO=OD=5，所以 BD=10。',w10ParaSvg('O 是中點')),
+w10Question(31,'basic','basic','四邊形分類','下列哪一種圖形一定也是平行四邊形？',w10Options('梯形','菱形','任意四邊形','只有一組對邊相等的四邊形'),'B','有兩組對邊分別平行的四邊形才是平行四邊形。','菱形有兩組對邊分別平行，所以一定是平行四邊形。',w10ClassSvg('特殊四邊形關係')),
+w10Question(32,'basic','basic','四邊形分類','下列哪一個敘述正確？',w10Options('長方形一定是正方形','正方形一定是長方形','菱形一定有四個直角','梯形一定有兩組對邊平行'),'B','正方形同時具有長方形和菱形的性質。','正方形有四個直角，所以一定是長方形；但長方形不一定四邊等長。',w10ClassSvg('正方形在交集')),
+w10Question(33,'basic','basic','四邊形分類','一個平行四邊形的對角線相等且互相垂直，這個平行四邊形一定是什麼？',w10Options('正方形','普通梯形','任意箏形','不一定能判斷'),'A','在平行四邊形中，對角線相等像長方形，對角線垂直像菱形。','同時具有長方形和菱形的對角線特徵，所以一定是正方形。',w10ClassSvg('長方形 + 菱形')),
+w10Question(34,'basic','basic','四根木條組圖形','用 8、8、8、8 四根木條可以拼出下列哪一類四邊形？',w10Options('菱形','一定是正方形','一定是長方形','一定是梯形'),'A','四邊等長可以形成菱形，但角度不一定是直角。','四邊都等長符合菱形；若沒有直角條件，不能保證是正方形。',w10ClassSvg('四邊等長')),
+w10Question(35,'basic','basic','梯形角度','等腰梯形 ABCD 中，AD 平行 BC，若 ∠A=76°，求 ∠B。',w10Options('76°','94°','104°','114°'),'C','同一腰上的兩個同側內角互補。','∠A+∠B=180°，所以 ∠B=104°。',w10ParaSvg('梯形同側內角')),
+w10Question(36,'basic','basic','平行線角度','L、M 互相平行，若一個銳角為 66°，求它的鄰補角 x。',w10Options('24°','66°','104°','114°'),'D','鄰補角相加為 180°。','x=180°-66°=114°。',w10ParallelSvg('鄰補角')),
+w10Question(37,'basic','basic','一直線分角','一直線上方被兩條射線分成 37°、x、58°，求 x。',w10Options('75°','85°','95°','105°'),'B','一直線上的角度總和是 180°。','x=180°-37°-58°=85°。',w10FoldSvg('直線上的三個角')),
+w10Question(38,'basic','basic','摺疊角度','摺疊時對折線兩側對應角相等。若一側為 34°，求另一側 x。',w10Options('17°','34°','56°','68°'),'B','摺疊可看成鏡射，對應的角會相等。','對折線兩側對應角相等，所以 x=34°。',w10FoldSvg('摺疊角相等')),
+w10Question(39,'basic','basic','摺疊與直角','長方形一角被摺線分成 28° 與 x，求 x。',w10Options('52°','62°','72°','118°'),'B','長方形的角是 90°。','x=90°-28°=62°。',w10FoldSvg('直角被摺線分割')),
+w10Question(40,'basic','basic','同底等高','在同一組平行線間，△PBC 面積為 13，且 Q 與 P 在同一條平行線上，求 △QBC 面積。',w10Options('6.5','13','26','無法判斷'),'B','同底且高相等的三角形面積相等。','兩個三角形共用底 BC，頂點都在與 BC 平行的同一直線上，所以面積相等，為 13。',w10ParaSvg('同底等高')),
+w10Question(41,'basic','basic','面積分割','平行四邊形內一點 P 連到四頂點，若 △PAB=6、△PBC=9、△PCD=11，求 △PAD。',w10Options('7','8','14','26'),'B','平行四邊形內部四個三角形有「上+下=左+右」的關係。','△PAD+△PBC=△PAB+△PCD，所以 △PAD+9=6+11，△PAD=8。',w10AreaSvg('上+下 = 左+右')),
+w10Question(42,'basic','basic','面積分割','平行四邊形內一點 P 連到四頂點，若左、右兩塊面積為 12、15，下方為 9，求上方面積。',w10Options('12','15','18','36'),'C','用「上+下=左+右」。','上方+9=12+15=27，所以上方=18。',w10AreaSvg('四塊面積關係')),
+w10Question(43,'basic','basic','平行四邊形面積','平行四邊形面積為 84，其中一條對角線切出的三角形面積是多少？',w10Options('21','28','42','84'),'C','對角線把平行四邊形分成兩個等面積三角形。','84÷2=42。',w10ParaSvg('對角線分成兩半')),
+w10Question(44,'basic','basic','箏形面積','四邊形 ABCD 的對角線 AC 垂直 BD，AC=12、BD=10，求面積。',w10Options('22','44','60','120'),'C','只要對角線互相垂直，面積可用兩對角線乘積的一半。','面積=12×10÷2=60。',w10QuadSvg('垂直對角線')),
+w10Question(45,'basic','basic','平行四邊形角度','平行四邊形 ABCD 中，∠A=39°，求 ∠B。',w10Options('39°','51°','141°','151°'),'C','平行四邊形鄰角互補。','∠B=180°-39°=141°。',w10ParaSvg('鄰角互補')),
+w10Question(46,'basic','basic','平行四邊形角度','平行四邊形 ABCD 中，∠A=39°，求 ∠D。',w10Options('39°','51°','141°','151°'),'C','∠A 和 ∠D 是同一邊上的鄰角。','∠D=180°-39°=141°。',w10ParaSvg('同側鄰角')),
+w10Question(47,'basic','basic','平行四邊形角度','平行四邊形 ABCD 中，∠A=39°，求 ∠C。',w10Options('39°','51°','141°','151°'),'A','平行四邊形對角相等。','∠C=∠A=39°。',w10ParaSvg('對角相等')),
+w10Question(48,'basic','basic','分類判斷','下列哪個敘述錯誤？',w10Options('正方形是菱形','長方形是平行四邊形','梯形一定是平行四邊形','正方形是長方形'),'C','梯形通常只有一組對邊平行，不一定有兩組。','平行四邊形需要兩組對邊分別平行，所以梯形不一定是平行四邊形。',w10ClassSvg('分類不要倒推')),
+w10Question(49,'basic','basic','兩組平行線','L1 平行 L2，M1 平行 M2。若其中一個銳角為 58°，求旁邊的鈍角 x。',w10Options('58°','112°','122°','132°'),'C','同一交點的銳角與鈍角互補。','x=180°-58°=122°。',w10ParallelSvg('兩組平行線')),
+w10Question(50,'basic','basic','平行四邊形面積','平行四邊形面積為 72，E 在 AD 上，求 △BCE 面積。',w10Options('24','36','48','72'),'B','E 在與 BC 平行的 AD 上，所以 △BCE 是同底等高的一半。','△BCE 面積=72÷2=36。',w10ParaSvg('側邊上的點')),
+w10Question(51,'application','medium','中階應用：折線追角','兩條平行線間有折線，上端與平行線夾 42°，下端外角為 128°，求折點角 x。',w10Options('84°','94°','104°','112°'),'B','先把下端外角轉成內角，再與上端角相加。','下端內角=180°-128°=52°，所以 x=42°+52°=94°。',w10ZigSvg('外角轉內角後相加')),
+w10Question(52,'application','medium','中階應用：多角追蹤','L、M 互相平行。圖中 ∠1=148°、∠3=67°，依平行線追角求 ∠4。',w10Options('25°','35°','45°','81°'),'B','先用 ∠3 的鄰補角，再和 ∠1 比較。','∠3 的鄰補角為 180°-67°=113°；∠4=148°-113°=35°。',w10ParallelSvg('先補角再相減')),
+w10Question(53,'application','medium','中階應用：平行四邊形周長','平行四邊形 ABCD 中，BE 平分 ∠ABC 並交 CD 延長線於 E。若 CD=6、DE=4，求平行四邊形周長。',w10Options('28','30','32','36'),'C','由角平分線和平行線可得到一段等腰三角形，BC=CD+DE。','AB=CD=6，BC=6+4=10，所以周長=2×(6+10)=32。',w10ParaSvg('角平分線 + 平行')),
+w10Question(54,'application','medium','中階應用：對角線追角','平行四邊形 ABCD 中，AC 為對角線，∠CAD=38°、∠ACD=51°，求 ∠ABC。',w10Options('81°','89°','91°','99°'),'C','先在 △ACD 求 ∠D，再用平行四邊形對角相等。','∠D=180°-38°-51°=91°，而 ∠ABC=∠D，所以答案是 91°。',w10ParaSvg('對角線切三角形')),
+w10Question(55,'application','medium','中階應用：對角線追角','平行四邊形 ABCD 中，AC 為對角線，∠CAD=27°、∠ACD=64°，求 ∠BCD。',w10Options('89°','91°','99°','116°'),'B','先求三角形 ACD 的 ∠D，再用鄰角互補求 ∠C。','∠D=180°-27°-64°=89°，所以 ∠BCD=180°-89°=91°。',w10ParaSvg('角被對角線分割')),
+w10Question(56,'application','medium','中階應用：垂直對角線面積','四邊形 ABCD 中，AC 垂直 BD，且 AO=5、CO=13、BO=6、DO=6，求 ABCD 面積。',w10Options('72','96','108','144'),'C','先合成兩條完整對角線，再用垂直對角線面積公式。','AC=5+13=18，BD=6+6=12，面積=18×12÷2=108。',w10QuadSvg('半段對角線合成')),
+w10Question(57,'application','medium','中階應用：菱形面積','菱形 ABCD 的兩條對角線長為 16、18，求面積。',w10Options('72','128','144','288'),'C','菱形面積等於兩對角線乘積的一半。','面積=16×18÷2=144。',w10QuadSvg('菱形面積')),
+w10Question(58,'application','medium','中階應用：內部點面積','平行四邊形內一點 P 連到四頂點，若 △PAB=9、△PBC=13、△PCD=17，求 △PAD。',w10Options('9','13','17','21'),'B','用平行四邊形內部四塊面積的對和相等。','△PAD+13=9+17=26，所以 △PAD=13。',w10AreaSvg('對和相等')),
+w10Question(59,'application','medium','中階應用：內部點面積','平行四邊形內一點 P 連到四頂點，若 △PAD=10、△PBC=18、△PAB=7，求 △PCD。',w10Options('17','19','21','28'),'C','仍使用「上+下=左+右」。','10+18=7+△PCD，所以 △PCD=21。',w10AreaSvg('缺一塊面積')),
+w10Question(60,'application','medium','中階應用：分類判斷','判斷下列敘述，正確的有幾個：正方形是菱形、正方形是長方形、長方形是菱形、菱形是平行四邊形。',w10Options('1個','2個','3個','4個'),'C','注意「一定是」與「可能是」不同。','正方形是菱形、正方形是長方形、菱形是平行四邊形都正確；長方形不一定是菱形，所以共有 3 個。',w10ClassSvg('集合關係判斷')),
+w10Question(61,'application','medium','中階應用：同底等高','平行四邊形 ABCD 面積為 96，E、F 都在 AD 上。比較 △BCE 與 △BCF 面積，兩者總和是多少？',w10Options('48','72','96','192'),'C','E、F 都在與 BC 平行的 AD 上，所以兩個三角形各是平行四邊形的一半。','△BCE=48，△BCF=48，總和=96。',w10ParaSvg('同一平行邊上兩點')),
+w10Question(62,'application','medium','中階應用：摺疊角','長方形紙片摺疊後，摺線兩側對應角相等。若一直角被分成 57°、x 與 x，求 x。',w10Options('16.5°','24°','33°','57°'),'A','摺疊產生兩個相等角，三個角合起來是直角。','57°+x+x=90°，所以 x=(90°-57°)÷2=16.5°。',w10FoldSvg('直角中的對應角')),
+w10Question(63,'application','advanced','進階應用：內部點面積','平行四邊形內一點 P 連到四頂點，若 △PAB=14、△PBC=21、△PAD=17，求 △PCD。',w10Options('20','22','24','26'),'C','這題要把面積關係換位置使用。','△PAD+△PBC=△PAB+△PCD，所以 17+21=14+△PCD，△PCD=24。',w10AreaSvg('四塊面積進階')),
+w10Question(64,'application','advanced','進階應用：面積反推','平行四邊形內一點 P 連到四頂點，若 △PAB=18、△PCD=26，求 △PBC+△PAD。',w10Options('36','44','52','88'),'B','平行四邊形內四塊面積的對和相等。','△PBC+△PAD=△PAB+△PCD=18+26=44。',w10AreaSvg('直接求對和')),
+w10Question(65,'application','advanced','進階應用：菱形角度','菱形 ABCD 中，∠A=124°，對角線 BD 交 AC 於 O，求 ∠ABO。',w10Options('28°','31°','56°','62°'),'A','先用鄰角互補求 ∠B，再用菱形對角線平分角。','∠B=180°-124°=56°，BD 平分 ∠B，所以 ∠ABO=28°。',w10QuadSvg('菱形對角線平分角')),
+w10Question(66,'application','advanced','進階應用：對角線面積','菱形兩條對角線的和為 40、差為 8，求菱形面積。',w10Options('160','192','320','384'),'B','先由和差求出兩條對角線，再套面積公式。','兩條對角線為 24 與 16，面積=24×16÷2=192。',w10QuadSvg('先求對角線長')),
+w10Question(67,'application','advanced','進階應用：箏形面積','箏形 ABCD 的對角線互相垂直，AC=21，BD=16，求面積。',w10Options('84','168','252','336'),'B','箏形可用垂直對角線面積公式。','面積=21×16÷2=168。',w10QuadSvg('箏形垂直對角線')),
+w10Question(68,'application','advanced','進階應用：條件判斷','一個平行四邊形有一個直角，且一組鄰邊相等。它一定是什麼圖形？',w10Options('正方形','梯形','普通箏形','無法判斷'),'A','平行四邊形有直角會成為長方形；鄰邊相等又會成為菱形。','同時是長方形與菱形，所以一定是正方形。',w10ClassSvg('直角 + 鄰邊相等')),
+w10Question(69,'application','advanced','進階應用：等腰梯形對角線','等腰梯形 ABCD 中，AD 平行 BC，兩條對角線交角為 120°。若圖形左右對稱，求 ∠DAC。',w10Options('30°','45°','60°','120°'),'A','等腰梯形左右對稱時，兩條對角線與底邊形成相等的傾角。','兩條對角線的鈍角為 120°，較小夾角為 60°；左右各一半，所以 ∠DAC=30°。',w10ParaSvg('等腰梯形對稱')),
+w10Question(70,'application','advanced','進階應用：平行與折線綜合','L、M 互相平行。折線上端外角為 135°，下端與平行線夾 62°，求中間折點角 x。',w10Options('97°','107°','117°','127°'),'B','先把上端外角轉成內角，再把兩端內角相加。','上端內角=180°-135°=45°，所以 x=45°+62°=107°。',w10ZigSvg('外角 + 折線追角'))
+);
+questionBank.filter(q=>q.chapterId==="w10" && (!q.hint || q.hint.length<20)).forEach(q=>{
+  q.hint=(q.hint || "先辨認圖形中的關鍵性質")+"，再依題目給的數字代入計算。";
+});
+const labelMap={basic:"基礎",medium:"中階應用",advanced:"進階應用",application:"應用題"};
 $("updateDate").textContent=updatedAt;
 
 function selectedRadio(name){return document.querySelector(`input[name="${name}"]:checked`)?.value}
@@ -605,9 +709,16 @@ function runSelfCheck(){
   const w9MediumDiagramOk=w9.filter(q=>q.difficulty==="medium").filter(isDiagram).length>=10;
   const w9AdvancedDiagramOk=w9.filter(q=>q.difficulty==="advanced").filter(isDiagram).length>=7;
   const w9DiagramOk=w9DiagramCount>=55 && w9BasicDiagramOk && w9MediumDiagramOk && w9AdvancedDiagramOk;
+  const w10=questionBank.filter(q=>q.chapterId==="w10");
+  const w10StructureOk=w10.length===70 && w10.filter(q=>q.level==="basic").length===50 && w10.filter(q=>q.difficulty==="medium").length===12 && w10.filter(q=>q.difficulty==="advanced").length===8;
+  const w10DiagramCount=w10.filter(isDiagram).length;
+  const w10BasicDiagramOk=w10.filter(q=>q.level==="basic").filter(isDiagram).length>=45;
+  const w10MediumDiagramOk=w10.filter(q=>q.difficulty==="medium").filter(isDiagram).length>=11;
+  const w10AdvancedDiagramOk=w10.filter(q=>q.difficulty==="advanced").filter(isDiagram).length>=7;
+  const w10DiagramOk=w10DiagramCount>=63 && w10BasicDiagramOk && w10MediumDiagramOk && w10AdvancedDiagramOk;
   const advancedCollapsed=document.querySelector("details.advanced") && !document.querySelector("details.advanced").open;
   const selfcheckCollapsed=document.querySelector("details.selfcheck") && !document.querySelector("details.selfcheck").open;
-  const pass=weeklyOk && w8StructureOk && w8NoExposedMath && w9DifficultyOk && w9StructureOk && w9DiagramOk && duplicateId===0 && duplicateQuestion===0 && duplicateOptions===0 && invalidAnswer===0 && missingHint===0 && missingExplanation===0 && countOptions==="10,20,30" && advancedCollapsed && selfcheckCollapsed;
+  const pass=weeklyOk && w8StructureOk && w8NoExposedMath && w9DifficultyOk && w9StructureOk && w9DiagramOk && w10StructureOk && w10DiagramOk && duplicateId===0 && duplicateQuestion===0 && duplicateOptions===0 && invalidAnswer===0 && missingHint===0 && missingExplanation===0 && countOptions==="10,20,30" && advancedCollapsed && selfcheckCollapsed;
   $("selfCheckBox").textContent=[
     "目前建置範圍：第 " + (builtWeeks[0]||"-") + "–" + (builtWeeks[builtWeeks.length-1]||"-") + " 週",
     "題庫總數：" + questionBank.length,
@@ -617,6 +728,8 @@ function runSelfCheck(){
     "第 9 週 12 中等應用 + 8 進階應用：" + (w9DifficultyOk?"PASS":"FAIL"),
     "第 9 週 70 題與 50/12/8：" + (w9StructureOk?"PASS":"FAIL"),
     "第 9 週圖形題至少 55 題：" + w9DiagramCount + " / 55 " + (w9DiagramOk?"PASS":"FAIL"),
+    "第 10 週 70 題與 50/12/8：" + (w10StructureOk?"PASS":"FAIL"),
+    "第 10 週圖形題至少 63 題：" + w10DiagramCount + " / 63 " + (w10DiagramOk?"PASS":"FAIL"),
     "題目 ID 重複：" + duplicateId,
     "題目文字重複：" + duplicateQuestion,
     "同題選項重複：" + duplicateOptions,
