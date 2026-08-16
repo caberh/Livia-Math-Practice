@@ -394,7 +394,7 @@ body:has(.selection-dock:not([hidden])){padding-bottom:92px}
 </head>
 <body>
 
-<div class="copyright">V0.52 © Capt. Caber</div>
+<div class="copyright">V0.54 © Capt. Caber</div>
 <div class="wrap">
   <section class="hero">
     <div class="hero-grid">
@@ -547,6 +547,127 @@ let currentMode="practice";
 let parentReview=false;
 const selectedChapterIds=new Set();
 const $=id=>document.getElementById(id);
+
+// Week 9 final diagram, hint, and solution refinement.
+(function(){
+  const style='<defs><style>.o{fill:#fff;stroke:#263238;stroke-width:2.4}.soft{fill:#eef6f2;stroke:#263238;stroke-width:2}.l{stroke:#263238;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}.d{stroke:#607d78;stroke-width:1.6;stroke-dasharray:5 5;fill:none}.a{stroke:#c45b3c;stroke-width:2;fill:none}.t{font:16px sans-serif;fill:#17211f}.s{font:14px sans-serif;fill:#17211f}.b{font:15px sans-serif;font-weight:700;fill:#17211f}.hot{font:16px sans-serif;font-weight:700;fill:#a13f29}</style></defs>';
+  const esc=s=>String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const T=(x,y,s,cls='t',anchor='middle')=>s==null?'':'<text class="'+cls+'" x="'+x+'" y="'+y+'" text-anchor="'+anchor+'">'+esc(s)+'</text>';
+  const svg=(body,label='題目圖形',h=270)=>'<svg class="diagram" viewBox="0 0 420 '+h+'" role="img" aria-label="'+esc(label)+'" xmlns="http://www.w3.org/2000/svg">'+style+body+'</svg>';
+  const set=(id,body,label,h)=>{const q=questionBank.find(x=>x.id===id);if(q){q.diagramSvg=svg(body,label||q.text,h||270);q.questionType='diagram';}};
+  const P={A:[210,38],B:[70,220],C:[350,220]};
+  const tri=(a,b,c,extra='')=>'<polygon class="o" points="210,38 70,220 350,220"/>'+T(210,28,'A')+T(51,239,'B')+T(369,239,'C')+T(210,78,a,'hot')+T(112,202,b,'hot')+T(308,202,c,'hot')+extra;
+  const extA=(label)=>'<line class="l" x1="210" y1="38" x2="155" y2="0"/>'+T(164,43,label,'hot');
+  const extB=(label)=>'<line class="l" x1="70" y1="220" x2="18" y2="220"/>'+T(48,205,label,'hot');
+  const extC=(label)=>'<line class="l" x1="350" y1="220" x2="405" y2="220"/>'+T(374,205,label,'hot');
+  const ticks='<line class="l" x1="137" y1="122" x2="148" y2="131"/><line class="l" x1="272" y1="131" x2="283" y2="122"/>';
+  const polyPts=(n,cx=210,cy=135,r=105,rot=-90)=>Array.from({length:n},(_,i)=>{const p=(rot+i*360/n)*Math.PI/180;return [(cx+r*Math.cos(p)).toFixed(1),(cy+r*Math.sin(p)).toFixed(1)]});
+  const poly=(n,extra='',caption='')=>{const pts=polyPts(n);return '<polygon class="o" points="'+pts.map(p=>p.join(',')).join(' ')+'"/>'+extra+T(210,263,caption,'b');};
+  const fan=(n,note)=>{const pts=polyPts(n);const lines=pts.slice(2,-1).map(p=>'<line class="d" x1="'+pts[0][0]+'" y1="'+pts[0][1]+'" x2="'+p[0]+'" y2="'+p[1]+'"/>').join('');return poly(n,lines,note);};
+  const cross=(leftTop,leftBottom,rightTop,rightBottom,center='')=>'<line class="l" x1="35" y1="45" x2="385" y2="225"/><line class="l" x1="35" y1="225" x2="385" y2="45"/><line class="l" x1="35" y1="45" x2="35" y2="225"/><line class="l" x1="385" y1="45" x2="385" y2="225"/>'+T(20,41,'A')+T(20,243,'B')+T(400,41,'C')+T(400,243,'D')+T(210,141,'O','t','start')+T(67,77,leftTop,'hot')+T(67,207,leftBottom,'hot')+T(353,77,rightTop,'hot')+T(353,207,rightBottom,'hot')+T(210,120,center,'hot');
+  const star=(labels)=>{const pts=[[210,20],[239,103],[327,105],[257,157],[282,242],[210,191],[138,242],[163,157],[93,105],[181,103]];const pos=[[210,49],[294,114],[268,220],[152,220],[126,114]];return '<polygon class="o" points="'+pts.map(p=>p.join(',')).join(' ')+'"/>'+labels.map((s,i)=>T(pos[i][0],pos[i][1],s,'hot')).join('');};
+  const wedge=(inside,outside)=>'<line class="l" x1="55" y1="205" x2="365" y2="205"/><line class="l" x1="210" y1="205" x2="295" y2="58"/><path class="a" d="M245 205 A35 35 0 0 0 228 175"/><path class="d" d="M228 175 A58 58 0 0 0 176 205"/>'+T(257,177,inside,'hot')+T(167,175,outside,'hot')+T(210,230,'同一頂點：內角與外角合成平角','s');
+
+  set('w9-q001',tri('52°','68°','x'));
+  set('w9-q002',tri('55°','x','',extC('外角 128°')));
+  set('w9-q003',tri('42°','x','x',ticks));
+  set('w9-q004',tri('x','47°','47°',ticks));
+  set('w9-q005',tri('2份','3份','4份'));
+  set('w9-q006',tri('x','x+20°','2x'));
+  set('w9-q007',tri('','x','x+18°',extA('外角 132°')));
+  set('w9-q008',tri('x','','35°',extB('外角 118°')));
+  set('w9-q009',tri('60°','60°','60°',ticks+extC('x')));
+  set('w9-q010',tri('x','90°','37°','<path class="d" d="M72 202 h18 v18"/>'));
+  set('w9-q013',tri('','','x',extA('125°')+extB('112°')));
+  set('w9-q014',tri('','x','x',ticks+extA('外角 104°')));
+  set('w9-q015',tri('x','','x+22°',extB('外角 116°')));
+  set('w9-q016',tri('x+36°','x','x',ticks));
+  set('w9-q017',tri('3份','4份','5份'));
+  set('w9-q018',tri('','','',extA('130°')+extB('110°')+extC('x')));
+  set('w9-q019','<line class="l" x1="75" y1="40" x2="345" y2="230"/><line class="l" x1="75" y1="230" x2="345" y2="40"/>'+T(210,142,'O')+T(172,112,'72°','hot')+T(248,112,'x','hot')+T(210,258,'72° 與 x 共用一直線','s'));
+  set('w9-q020',cross('50°','60°','45°','x','',''));
+  set('w9-q021',tri('30°+50°','48°','52°','<line class="l" x1="210" y1="38" x2="175" y2="220"/>'+T(175,240,'D')+T(145,198,'外角 x','hot')));
+  set('w9-q022',tri('','','46°','<line class="l" x1="210" y1="38" x2="175" y2="220"/>'+T(175,240,'D')+T(187,80,'38°','hot')+T(224,80,'x','hot')+T(112,202,'62°','hot')));
+  set('w9-q023','<polygon class="o" points="70,220 210,112 70,35"/><line class="l" x1="210" y1="112" x2="370" y2="112"/>'+T(52,36,'A')+T(52,239,'B')+T(210,105,'O')+T(102,70,'46°','hot')+T(102,205,'39°','hot')+T(255,99,'x（相鄰外角）','hot'));
+  set('w9-q024',cross('36°','58°','','','O')+T(240,116,'右側交點角 86°','s')+T(209,161,'相鄰外角 x','hot'));
+  set('w9-q025','<polygon class="o" points="105,45 55,220 355,220 310,45"/><line class="l" x1="105" y1="45" x2="355" y2="220"/>'+T(96,35,'A')+T(38,239,'B')+T(372,239,'C')+T(322,35,'D')+T(110,202,'65°','hot')+T(132,78,'35°','hot')+T(171,69,'50°','hot')+T(302,196,'80°','hot')+T(275,78,'40°','hot')+T(328,195,'90°','hot')+T(210,248,'C 點兩個小角要相加','s'));
+  set('w9-q026','<polyline class="l" points="55,205 120,105 210,185 285,70 365,155"/>'+T(101,122,'70°','hot')+T(151,151,'95°','hot')+T(260,125,'110°','hot')+T(330,138,'x','hot')+T(210,252,'依箭頭方向依序轉彎，最後回到原方向','s'));
+  set('w9-q027',star(['28°','35°','41°','32°','x']));
+  set('w9-q028',tri('','48°','x',extA('外角 2x')));
+  set('w9-q029',fan(7,'七邊形：只數同一頂點畫出的對角線'));
+  set('w9-q030',fan(11,'十一邊形：問畫出的對角線條數'));
+  set('w9-q031',fan(12,'從同一頂點分成 10 個三角形'));
+  set('w9-q033',fan(9,'同一頂點可畫 6 條，先反推邊數'));
+  set('w9-q035',fan(14,'十四邊形可分成 12 個三角形'));
+  {const pts=polyPts(8);set('w9-q036',poly(8,'<line class="l" x1="'+pts[2][0]+'" y1="'+pts[2][1]+'" x2="340" y2="195"/>'+T(331,177,'外角 x','hot'),'正八邊形的一個外角'));}
+  {const pts=polyPts(9);set('w9-q037',poly(9,'<circle class="soft" cx="210" cy="135" r="4"/><line class="l" x1="210" y1="135" x2="'+pts[0][0]+'" y2="'+pts[0][1]+'"/><line class="l" x1="210" y1="135" x2="'+pts[1][0]+'" y2="'+pts[1][1]+'"/>'+T(210,151,'O')+T(230,115,'x','hot'),'正九邊形相鄰兩頂點的中心角'));}
+  set('w9-q038',fan(8,'每個內角 135°，問可分成幾個三角形'));
+  set('w9-q039',wedge('內角 4x','外角 x'));
+  set('w9-q040',fan(15,'每個外角 24°，先求邊數再數對角線'));
+  set('w9-q047',wedge('內角 2x','外角 x'));
+  set('w9-q048',wedge('內角 3x','外角 x'));
+  set('w9-q049',wedge('內角 5x','外角 x'));
+  set('w9-q050',wedge('內角 8x','外角 x'));
+  set('w9-q051',cross('48°','57°','64°','','O')+'<line class="l" x1="385" y1="225" x2="385" y2="266"/>'+T(350,205,'內角','s')+T(353,248,'外角 x','hot'));
+  set('w9-q052',tri('','62°','',extA('A 外角')+extC('C 外角')+T(210,257,'A 外角比 C 外角大 34°','s')));
+  set('w9-q053',tri('','x','x',ticks+extC('外角 116°')));
+  set('w9-q054',star(['31°','27°','46°','38°','x']));
+  {const pts=polyPts(5);set('w9-q055',poly(5,'<line class="l" x1="'+pts[0][0]+'" y1="'+pts[0][1]+'" x2="'+pts[2][0]+'" y2="'+pts[2][1]+'"/>'+T(+pts[0][0],+pts[0][1]-9,'A')+T(+pts[1][0]+12,+pts[1][1],'B')+T(+pts[2][0]+12,+pts[2][1]+8,'C')+T(221,71,'x','hot'),'正五邊形：連接 AC'));}
+  {const pts=polyPts(6);set('w9-q056',poly(6,'<polygon class="soft" points="'+[pts[0],pts[2],pts[4]].map(p=>p.join(',')).join(' ')+'"/>'+T(210,67,'60°','hot')+T(210,255,'取相隔一個頂點的三點','s')));}
+  set('w9-q057',fan(11,'分成 9 個三角形，先反推為十一邊形'));
+  set('w9-q058',tri('','', '',T(133,119,'13','hot')+T(287,119,'21','hot')+T(210,210,'奇數 x','hot')));
+  set('w9-q059','<circle class="o" cx="210" cy="135" r="110"/><polygon class="soft" points="256,55 256,215 118,135"/>'+Array.from({length:12},(_,i)=>{const n=i+1,ang=(n*30-90)*Math.PI/180;const x=210+88*Math.cos(ang),y=140+88*Math.sin(ang);return T(x.toFixed(1),y.toFixed(1),String(n),n===1||n===5||n===9?'hot':'s');}).join('')+T(205,140,'三段間隔相同','b'));
+  set('w9-q060','<circle class="soft" cx="210" cy="135" r="5"/><line class="l" x1="210" y1="135" x2="210" y2="25"/><line class="l" x1="210" y1="135" x2="305" y2="80"/><line class="l" x1="210" y1="135" x2="305" y2="230"/><path class="a" d="M210 72 A63 63 0 0 1 265 104"/><path class="a" d="M265 104 A63 63 0 0 1 255 179"/><path class="d" d="M255 179 A63 63 0 1 1 210 72"/>'+T(210,151,'O')+T(248,76,'正三角形 60°','s')+T(287,147,'正方形 90°','s')+T(130,147,'剩餘 210°','hot')+T(210,258,'正六邊形放入時，每個頂角占 120°','s'));
+  set('w9-q061',cross('42°','68°','','','70°')+'<line class="l" x1="385" y1="225" x2="385" y2="266"/>'+T(350,184,'內角 x','hot')+T(351,248,'外角 133°','hot'));
+  set('w9-q062','<polygon class="o" points="70,45 350,45 330,225 210,145 70,225"/>'+T(93,72,'65°','hot')+T(326,72,'80°','hot')+T(306,207,'92°','hot')+T(93,207,'118°','hot')+T(210,137,'凹角 x','hot')+T(210,258,'五個頂點；x 是大於 180° 的內角','s'));
+  set('w9-q063','<polygon class="o" points="65,210 95,70 205,35 330,90 355,220"/><path class="a" d="M73 184 q18 -10 24 -30"/>'+T(89,151,'52°','hot')+T(133,68,'74°','hot')+T(220,58,'91°','hot')+T(318,105,'63°','hot')+T(340,205,'x','hot')+T(210,258,'沿同一方向繞一圈，總轉角為 360°','s'));
+  set('w9-q064','<polygon class="o" points="65,45 220,35 360,85 300,225 205,145 70,220"/>'+T(93,72,'96°','hot')+T(216,64,'108°','hot')+T(330,102,'74°','hot')+T(294,207,'132°','hot')+T(205,139,'210°','hot')+T(91,205,'x','hot')+T(210,258,'六個頂點；210° 是凹角','s'));
+  set('w9-q065','<polygon class="d" points="72,45 90,98 146,99 101,132 118,186 72,154 27,186 44,132 0,99 55,98"/><g transform="translate(78 22) scale(.72)">'+star(['28°','34°','37°','42°','x'])+'</g>'+T(290,255,'只計算右側五角星的五個尖角','s'));
+  {const pts=polyPts(6);set('w9-q066',poly(6,'<line class="l" x1="'+pts[0][0]+'" y1="'+pts[0][1]+'" x2="'+pts[2][0]+'" y2="'+pts[2][1]+'"/><line class="l" x1="'+pts[0][0]+'" y1="'+pts[0][1]+'" x2="'+pts[3][0]+'" y2="'+pts[3][1]+'"/>'+pts.map((p,i)=>T(+p[0]+(i===1||i===2?12:i===4||i===5?-12:0),+p[1]+(i===0?-8:i===3?18:5),'ABCDEF'[i])).join('')+T(226,74,'x','hot'),'正六邊形：連接 AC、AD'));}
+  set('w9-q067',tri('','54°','x','<line class="l" x1="210" y1="38" x2="168" y2="220"/><line class="l" x1="168" y1="220" x2="282" y2="126"/>'+T(168,240,'D')+T(290,124,'E')+T(189,86,'32°','hot')+T(187,198,'118°','hot')+T(266,142,'41°','hot')));
+  {const pts=polyPts(10);set('w9-q068',poly(10,'<line class="l" x1="'+pts[0][0]+'" y1="'+pts[0][1]+'" x2="'+pts[2][0]+'" y2="'+pts[2][1]+'"/><line class="l" x1="'+pts[0][0]+'" y1="'+pts[0][1]+'" x2="'+pts[3][0]+'" y2="'+pts[3][1]+'"/>'+pts.map((p,i)=>T(+p[0]+(i>0&&i<5?12:i>5?-12:0),+p[1]+(i===0?-7:4),'ABCDEFGHIJ'[i],'s')).join('')+T(229,66,'x','hot'),'正十邊形：連接 AC、AD'));}
+  set('w9-q069',tri('','','',T(133,119,'14','hot')+T(287,119,'23','hot')+T(210,210,'偶數 x','hot')+T(210,258,'另有限制：三邊周長小於 55','s')));
+  {const hpts=polyPts(6,112,135,72),dpts=polyPts(10,305,135,72);set('w9-q070','<polygon class="o" points="'+hpts.map(p=>p.join(',')).join(' ')+'"/><polygon class="soft" points="'+dpts.map(p=>p.join(',')).join(' ')+'"/>'+T(112,140,'正六邊形')+T(112,163,'內角 120°','hot')+T(305,140,'目標正多邊形')+T(305,163,'內角多 24°','hot')+T(210,258,'先辨認目標邊數，再計算全部對角線','s'));}
+
+  const guidance={
+    'w9-q019':['先圈出 72° 的相鄰角 x；兩角的外側邊在同一直線上，因此它們合成 180°。','72° 與 x 是線性對角，兩角和為 180°，所以 x=180°-72°=108°。'],
+    'w9-q029':['從選定頂點劃掉自己與左右兩個相鄰頂點；剩下能連到的頂點數，就是可畫的對角線數。','選定一個頂點後，不能連自己，也不能把左右兩條邊當對角線，因此七個頂點扣掉 3 個，得到 4 條。'],
+    'w9-q032':['先把 1260° 看成若干個 180°；得到的數量是 n-2，不是邊數 n。','1260°÷180°=7，表示 n-2=7；再把少掉的 2 補回來，得到 n=9，所以是九邊形。'],
+    'w9-q034':['在 12 邊形以內逐一檢查 n(n-3)÷2；先試接近 27 的 8、9、10 邊形。','九邊形的對角線總數為 9×(9-3)÷2=27，符合題目，因此答案是九邊形。'],
+    'w9-q035':['先想像從同一頂點向其他非相鄰頂點連線；十四邊形會被分成 n-2 個三角形。','十四邊形可分成 14-2=12 個三角形，每個三角形內角和 180°，所以總和是 12×180°=2160°。'],
+    'w9-q036':['正八邊形八個外角平均分完一整圈；題目問外角，不必先算內角。','任意凸多邊形的一組外角和為 360°。正八邊形八個外角相等，所以每個外角為 360°÷8=45°。'],
+    'w9-q041':['題目給的是分成 8 個三角形，因此先寫成 n-2=8，再補回 2。','多邊形從一頂點可分成 n-2 個三角形。由 n-2=8 得 n=10，所以是十邊形。'],
+    'w9-q042':['從一頂點可畫的對角線數是 n-3；把題目的 11 代入後，再補回 3。','由 n-3=11 得 n=14，所以這個多邊形有 14 邊。'],
+    'w9-q055':['先看 △ABC：正五邊形的 AB、BC 是等長邊，∠ABC 就是正五邊形內角。','正五邊形每個內角為 108°。在等腰三角形 ABC 中，兩個底角相等，所以 ∠BAC=(180°-108°)÷2=36°。'],
+    'w9-q057':['分成 9 個三角形表示 n-2=9；求出邊數後，題目還要你算全部對角線。','先由 n-2=9 得 n=11。十一邊形全部對角線共有 11×(11-3)÷2=44 條。'],
+    'w9-q062':['先確認圖上共有五個頂點；凹角 x 雖大於 180°，仍要算在五邊形內角和中。','五邊形內角和為 (5-2)×180°=540°。四個已知角合計 355°，所以凹角 x=540°-355°=185°。'],
+    'w9-q064':['先確認六個內角都要計入，包含 210° 的凹角；再用六邊形內角和扣除五個已知角。','六邊形內角和為 (6-2)×180°=720°。五個已知角合計 620°，所以 x=720°-620°=100°。'],
+    'w9-q066':['只看 ∠CAD 所對的短弧 CD；正六邊形相鄰兩頂點 C、D 的中心角是 60°。','正六邊形相鄰頂點的中心角為 360°÷6=60°。∠CAD 是對短弧 CD 的圓周角，所以是 60°÷2=30°。']
+  };
+  const appGuidance={
+    'w9-q051':['先在左三角形算 O 點角，再利用對頂角相等搬到右邊；最後注意 x 是外角。','左三角形的 O 點角為 180°-48°-57°=75°。右三角形的 O 點角也是 75°，右下內角為 180°-75°-64°=41°；x 是其外角，所以 x=180°-41°=139°。'],
+    'w9-q052':['把 A、C 兩外角各自改寫成 180° 減內角；外角相差 34°，就等於 C、A 內角相差 34°。','由 ∠B=62° 得 ∠A+∠C=118°。A 外角較大，表示 ∠A 較小，且 ∠C-∠A=34°；解得 ∠A=42°、∠C=76°。兩外角是 138°、104°，較小者為 104°。'],
+    'w9-q053':['先把 C 點 116° 外角換成 C 內角，再利用 AB=AC 判斷 B、C 兩底角相等。','∠C=180°-116°=64°。因 AB=AC，所以 ∠B=∠C=64°；頂角 ∠A=180°-64°-64°=52°。'],
+    'w9-q054':['只加五個尖角，不要把星形交叉處的角算進去；五個尖角總和固定是 180°。','四個已知尖角合計 31°+27°+46°+38°=142°，因此第五個尖角 x=180°-142°=38°。'],
+    'w9-q056':['觀察選取的三個頂點：沿正六邊形外圍，每兩點之間都隔一個頂點，所以三條弦等長。','三個頂點把六個頂點平均分成三組，三條連線等長，形成正三角形；正三角形每個角都是 60°。'],
+    'w9-q058':['先由 13、21 得到第三邊的嚴格範圍，再只圈出範圍內的奇數；端點不能取。','三角形不等式給出 21-13<x<21+13，也就是 8<x<34。符合的奇數為 9、11、13、…、33，共 13 個。'],
+    'w9-q059':['沿鐘面數間隔：1 到 5、5 到 9、9 回到 1 都跨 4 格，三段相同。','三個點把鐘面 12 格平均分成三段，每段 4 格，對應的三條弦等長，因此形成正三角形，每個內角為 60°。'],
+    'w9-q060':['先扣掉正三角形的 60° 與正方形的 90°；再檢查剩餘角度能否由若干個 120° 完整填滿。','一周為 360°，放入正三角形與正方形後剩 360°-60°-90°=210°。正六邊形在頂點占 120°，210° 不是 120° 的整數倍，所以無法剛好密鋪。'],
+    'w9-q061':['依序做三次轉換：左三角形求 O 點角、用對頂角移到右邊、把 133° 外角換成 D 內角。','左側 O 點角為 180°-42°-68°=70°，右側對頂角也是 70°。D 內角為 180°-133°=47°，所以 x=180°-70°-47°=63°。'],
+    'w9-q063':['沿圖形同一方向走一圈，把每次轉彎角相加；回到原方向代表總轉角是 360°。','四個已知轉角合計 52°+74°+91°+63°=280°。完整一圈還差 360°-280°=80°，所以 x=80°。'],
+    'w9-q065':['圖中只鎖定右側五角星；把右星四個已知尖角相加，再由 180° 補足第五角。','右側五角星五個尖角總和為 180°。已知四角合計 28°+34°+37°+42°=141°，所以 x=180°-141°=39°。'],
+    'w9-q067':['先在小三角形 ADE 求 A 點的小角，再與 32° 合成大三角形的 ∠A，最後求 ∠C。','△ADE 中，∠DAE=180°-118°-41°=21°。大三角形的 ∠A=32°+21°=53°，因此 ∠C=180°-54°-53°=73°。'],
+    'w9-q068':['∠CAD 只截到相鄰頂點 C、D 之間的一小段弧；先求這段弧的中心角，再取一半。','正十邊形相鄰中心角為 360°÷10=36°。∠CAD 是對弧 CD 的圓周角，所以 ∠CAD=36°÷2=18°。'],
+    'w9-q069':['先交集三個條件：三角形不等式、周長小於 55、第三邊是偶數；不要只做其中一項。','三角形不等式給 9<x<37；周長 14+23+x<55 又給 x<18。合併後 9<x<18，符合的偶數是 10、12、14、16，共 4 種。'],
+    'w9-q070':['依序找四件事：正六邊形內角、目標內角、目標外角、目標邊數；最後才算全部對角線。','正六邊形內角為 120°，目標內角為 120°+24°=144°，所以外角為 36°，邊數為 360°÷36°=10。全部對角線為 10×(10-3)÷2=35 條。']
+  };
+  Object.assign(guidance,appGuidance);
+  questionBank.filter(q=>q.chapterId==='w9').forEach(q=>{
+    q.hint=String(q.hint||'').replace('；先找已知角與未知角的關係，再列式。','');
+    q.explanation=String(q.explanation||'').replace(/。，所以答案如選項所示。/g,'。').replace(/，所以答案如選項所示。/g,'。');
+    if(guidance[q.id]){q.hint=guidance[q.id][0];q.explanation=guidance[q.id][1];}
+  });
+})();
 const w10DiagramStyle='<defs><style>.o{fill:#fff;stroke:#222;stroke-width:2.2}.g{fill:#eef4f1;stroke:#222;stroke-width:2}.l{stroke:#222;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}.d{stroke:#777;stroke-width:1.5;stroke-dasharray:5 5;fill:none}.t{font:16px sans-serif;fill:#222}.s{font:13px sans-serif;fill:#222}.b{font:15px sans-serif;font-weight:700;fill:#222}</style></defs>';
 function w10Svg(caption,body){
   return '<svg class="diagram" viewBox="0 0 420 260" role="img" aria-label="題目圖形" xmlns="http://www.w3.org/2000/svg">'+w10DiagramStyle+body+'<text class="b" x="210" y="248" text-anchor="middle">'+(caption || '圖形資料')+'</text></svg>';
@@ -3153,6 +3274,102 @@ const w18HintByTopic={
   '皮帶輪轉數':'皮帶不打滑表示兩輪邊緣走過相同距離；轉數與半徑成反比，先寫出反向的轉數比。'
 };
 
+// Repair hidden application stems from Weeks 1-6. Their full wording was
+// stored in math, which is intentionally hidden for application questions.
+questionBank.filter(q=>{
+  const week=Number((q.chapterId||"").replace("w",""));
+  const number=Number((q.id||"").split("q")[1]);
+  return week>=1 && week<=6 && number>=51 && number<=62;
+}).forEach(q=>{
+  q.text=q.math;
+  q.math="";
+});
+
+// Replace five equation-unit questions that were accidentally inserted into Week 10.
+const w10ReplacementQuadSvg=w10Svg("四邊形內角",'<polygon class="o" points="92,194 132,62 322,82 286,214"/><text class="t" x="119" y="54">A</text><text class="t" x="72" y="207">B</text><text class="t" x="330" y="79">C</text><text class="t" x="292" y="231">D</text><text class="s" x="137" y="91">86°</text><text class="s" x="113" y="181">94°</text><text class="s" x="290" y="109">112°</text><text class="s" x="266" y="195">x</text>');
+const w10ReplacementKiteSvg=w10Svg("箏形對角線",'<polygon class="o" points="210,34 330,130 210,226 90,130"/><line class="l" x1="210" y1="34" x2="210" y2="226"/><line class="l" x1="90" y1="130" x2="330" y2="130"/><path class="d" d="M202 130 h16 v16"/><text class="s" x="210" y="94" text-anchor="middle">兩對角線和為 34</text><text class="s" x="210" y="184" text-anchor="middle">兩對角線相差 10</text>');
+const w10Replacements={
+  "w10-q022":{topic:"四邊形判斷",text:"下列哪一個條件可以保證一個平行四邊形是正方形？",options:{A:"有一個直角且一組相鄰邊等長",B:"兩條對角線長度相等",C:"兩條對角線互相垂直",D:"有一組對邊等長"},answer:"A",hint:"把正方形同時具備的長方形條件與菱形條件各找一個，再看哪個選項兩者都有。",explanation:"有一個直角可使平行四邊形成為長方形；一組相鄰邊等長可使它成為菱形。兩條件同時成立時就是正方形。",math:"",questionType:"diagram",diagramSvg:w10CleanSvg("class",["平行四邊形","要保證為正方形"])},
+  "w10-q024":{topic:"梯形角度",text:"等腰梯形 ABCD 中，AD 與 BC 平行，A、B 位於同一腰兩端。若 ∠A=68°，求 ∠B。",options:{A:"68°",B:"112°",C:"122°",D:"136°"},answer:"B",hint:"AB 是連接兩條平行邊的同一腰，因此 A、B 兩角是一組同側內角。",explanation:"同一腰兩端的角互補，所以 ∠B=180°-68°=112°。",math:"",questionType:"diagram",diagramSvg:w10CleanSvg("para",["AD ∥ BC","∠A=68°","求 ∠B"])},
+  "w10-q027":{topic:"四邊形內角",text:"四邊形 ABCD 的三個內角分別為 86°、94°、112°，第四個內角 x 是多少度？",options:{A:"58°",B:"68°",C:"78°",D:"88°"},answer:"B",hint:"先把三個已知內角相加，再從四邊形內角和 360° 扣除。",explanation:"86°+94°+112°=292°，所以 x=360°-292°=68°。",math:"",questionType:"diagram",diagramSvg:w10ReplacementQuadSvg},
+  "w10-q051":{topic:"平行線折線角",text:"L 與 M 平行。一條折線連接兩平行線，上端外側角為 133°，下端內側角為 58°，求折點角 x。",options:{A:"95°",B:"105°",C:"115°",D:"125°"},answer:"B",hint:"先把上端外側角換成與折線相鄰的小角，再過折點想一條與 L、M 平行的直線。",explanation:"上端小角=180°-133°=47°，折點角 x=47°+58°=105°。",math:"",questionType:"diagram",diagramSvg:w10CleanSvg("zig",["L ∥ M","133°、58°、x"])},
+  "w10-q055":{topic:"箏形面積",text:"箏形的兩條對角線互相垂直，長度和為 34，且相差 10。這個箏形的面積是多少？",options:{A:"120",B:"132",C:"144",D:"264"},answer:"B",hint:"先利用和與差求出兩條對角線長，再用兩條垂直對角線乘積的一半求面積。",explanation:"兩條對角線為 (34+10)÷2=22 與 (34-10)÷2=12，面積=22×12÷2=132。",math:"",questionType:"diagram",diagramSvg:w10ReplacementKiteSvg}
+};
+Object.entries(w10Replacements).forEach(([id,patch])=>{
+  const q=questionBank.find(item=>item.id===id);
+  if(q) Object.assign(q,patch);
+});
+
+// Give each week a balanced, deterministic answer layout that cannot be inferred from the ID.
+function answerLayoutHash(value){
+  let hash=2166136261;
+  for(const ch of String(value)){
+    hash^=ch.charCodeAt(0);
+    hash=Math.imul(hash,16777619);
+  }
+  return hash>>>0;
+}
+function answerLayoutShuffle(values,seed){
+  const out=[...values];
+  let state=seed>>>0 || 1;
+  for(let i=out.length-1;i>0;i--){
+    state^=state<<13;
+    state^=state>>>17;
+    state^=state<<5;
+    state>>>=0;
+    const j=Math.floor((state/4294967296)*(i+1));
+    [out[i],out[j]]=[out[j],out[i]];
+  }
+  return out;
+}
+function answerLayoutMaxRun(values){
+  let longest=0,current=0,last="";
+  values.forEach(value=>{
+    current=value===last?current+1:1;
+    last=value;
+    longest=Math.max(longest,current);
+  });
+  return longest;
+}
+function balancedAnswerTargets(count,chapterId){
+  const letters=["A","B","C","D"];
+  const offset=answerLayoutHash(chapterId)%4;
+  const remainder=count%4;
+  const base=[];
+  letters.forEach((letter,i)=>{
+    const amount=Math.floor(count/4)+(((i-offset+4)%4)<remainder?1:0);
+    for(let n=0;n<amount;n++) base.push(letter);
+  });
+  const seedBase=answerLayoutHash(chapterId+"|answers");
+  for(let attempt=0;attempt<512;attempt++){
+    const seed=(seedBase^Math.imul(attempt+1,0x9e3779b9))>>>0;
+    const candidate=answerLayoutShuffle(base,seed);
+    const periodic=Array.from({length:7},(_,i)=>i+2).some(period=>{
+      const matches=candidate.slice(period).filter((value,i)=>value===candidate[i]).length;
+      return matches/(candidate.length-period)>=0.45;
+    });
+    if(answerLayoutMaxRun(candidate)<=2 && !periodic) return candidate;
+  }
+  return answerLayoutShuffle(base,seedBase);
+}
+function rebalanceAnswerPositions(){
+  const letters=["A","B","C","D"];
+  [...new Set(questionBank.map(q=>q.chapterId))].forEach(chapterId=>{
+    const questions=questionBank.filter(q=>q.chapterId===chapterId).sort((a,b)=>a.id.localeCompare(b.id));
+    const targets=balancedAnswerTargets(questions.length,chapterId);
+    questions.forEach((q,index)=>{
+      const correct=q.options[q.answer];
+      const distractors=letters.filter(letter=>letter!==q.answer).map(letter=>q.options[letter]);
+      const shuffledDistractors=answerLayoutShuffle(distractors,answerLayoutHash(q.id+"|distractors"));
+      const target=targets[index];
+      let distractorIndex=0;
+      q.options=Object.fromEntries(letters.map(letter=>[letter,letter===target?correct:shuffledDistractors[distractorIndex++]]));
+      q.answer=target;
+    });
+  });
+}
+rebalanceAnswerPositions();
+
 const w11ShortHintById={
   'W11-Q011':'先把數字係數寫在文字前面，乘號可以省略；再檢查負號與字母次序是否正確。',
   'W11-Q018':'先判斷兩個負號相乘會變成正號，再相乘數字係數並保留文字部分。',
@@ -3512,6 +3729,27 @@ function runSelfCheck(){
     if(!q.explanation) missingExplanation++;
   });
   const builtWeeks=[...new Set(questionBank.map(q=>Number((q.chapterId||"").replace("w",""))))].filter(Boolean).sort((a,b)=>a-b);
+  const answerStats=builtWeeks.map(w=>{
+    const arr=questionBank.filter(q=>q.chapterId==="w"+w).sort((a,b)=>a.id.localeCompare(b.id));
+    const counts={A:0,B:0,C:0,D:0};
+    arr.forEach(q=>counts[q.answer]++);
+    const values=Object.values(counts);
+    const sequence=arr.map(q=>q.answer);
+    const periodFourMatches=sequence.slice(4).filter((value,i)=>value===sequence[i]).length;
+    const periodicity=Array.from({length:7},(_,i)=>i+2).map(period=>{
+      const matches=sequence.slice(period).filter((value,i)=>value===sequence[i]).length;
+      return {period,matches,ratio:matches/(sequence.length-period)};
+    });
+    const worstPeriod=periodicity.reduce((worst,item)=>item.ratio>worst.ratio?item:worst,periodicity[0]);
+    const maxRun=answerLayoutMaxRun(sequence);
+    return {week:w,counts,maxRun,periodFourMatches,worstPeriod,balanced:Math.max(...values)-Math.min(...values)<=1,nonPatterned:maxRun<=2 && worstPeriod.ratio<0.45};
+  });
+  const answerBalanceOk=answerStats.every(stat=>stat.balanced);
+  const answerPatternOk=answerStats.every(stat=>stat.nonPatterned);
+  const visibleApplicationStemOk=questionBank.every(q=>q.level!=="application" || q.text!=="應用題：先整理條件再計算。");
+  const directEquationDiagramCount=questionBank.filter(q=>q.questionType==="diagram" && q.diagramSvg && !q.diagramSvg.trim().startsWith("<svg")).length;
+  const w10ReplacementTopics={"w10-q022":"四邊形判斷","w10-q024":"梯形角度","w10-q027":"四邊形內角","w10-q051":"平行線折線角","w10-q055":"箏形面積"};
+  const w10ReplacementOk=Object.entries(w10ReplacementTopics).every(([id,topic])=>questionBank.some(q=>q.id===id && q.topic===topic && q.diagramSvg.trim().startsWith("<svg")));
   const curriculumOk=chapters.length===36 && chapters.filter(ch=>ch.phase===1).length===18 && chapters.filter(ch=>ch.phase===2).length===18 && chapters.every((ch,i)=>ch.week===i+1 && ch.id==="w"+(i+1) && ch.date && ch.title);
   const weeklyOk=builtWeeks.every(w=>{
     const arr=questionBank.filter(q=>q.chapterId==="w"+w);
@@ -3574,12 +3812,17 @@ function runSelfCheck(){
   const brokenHintCount=questionBank.filter(q=>/。，|。。|，，/.test(q.hint)).length;
   const advancedCollapsed=document.querySelector("details.advanced") && !document.querySelector("details.advanced").open;
   const selfcheckCollapsed=document.querySelector("details.selfcheck") && !document.querySelector("details.selfcheck").open;
-  const pass=curriculumOk && weeklyOk && w8StructureOk && w8NoExposedMath && w9DifficultyOk && w9StructureOk && w9DiagramOk && w10StructureOk && w10DiagramOk && w13StructureOk && w13NoExposedMath && w14StructureOk && w14NoExposedMath && w15StructureOk && w15NoExposedMath && w15NoEquationText && w16StructureOk && w16NoExposedMath && w16NoEquationText && w17StructureOk && w17NoExposedMath && w17NoFormulaText && w17IndependentOk && w18StructureOk && w18NoExposedMath && w18NoFormulaText && w18DiagramOk && w19StructureOk && w19NoExposedMath && w19NoFormulaText && w19IndependentOk && w19HintOk && w19DiagramOk && duplicateId===0 && duplicateQuestion===0 && duplicateOptions===0 && invalidAnswer===0 && missingHint===0 && hintDirectionOk && vagueHintCount===0 && brokenHintCount===0 && missingExplanation===0 && countOptions==="10,20,30,40" && advancedCollapsed && selfcheckCollapsed;
+  const pass=curriculumOk && weeklyOk && answerBalanceOk && answerPatternOk && visibleApplicationStemOk && directEquationDiagramCount===0 && w10ReplacementOk && w8StructureOk && w8NoExposedMath && w9DifficultyOk && w9StructureOk && w9DiagramOk && w10StructureOk && w10DiagramOk && w13StructureOk && w13NoExposedMath && w14StructureOk && w14NoExposedMath && w15StructureOk && w15NoExposedMath && w15NoEquationText && w16StructureOk && w16NoExposedMath && w16NoEquationText && w17StructureOk && w17NoExposedMath && w17NoFormulaText && w17IndependentOk && w18StructureOk && w18NoExposedMath && w18NoFormulaText && w18DiagramOk && w19StructureOk && w19NoExposedMath && w19NoFormulaText && w19IndependentOk && w19HintOk && w19DiagramOk && duplicateId===0 && duplicateQuestion===0 && duplicateOptions===0 && invalidAnswer===0 && missingHint===0 && hintDirectionOk && vagueHintCount===0 && brokenHintCount===0 && missingExplanation===0 && countOptions==="10,20,30,40" && advancedCollapsed && selfcheckCollapsed;
   $("selfCheckBox").textContent=[
     "36 週課程規劃（18 + 18）：" + (curriculumOk?"PASS":"FAIL"),
     "目前建置範圍：第 " + (builtWeeks[0]||"-") + "–" + (builtWeeks[builtWeeks.length-1]||"-") + " 週",
     "題庫總數：" + questionBank.length,
     "每週 50 基本 + 20 應用：" + (weeklyOk?"PASS":"FAIL"),
+    "每週答案 A/B/C/D 均衡：" + (answerBalanceOk?"PASS":"FAIL"),
+    "答案位置無固定循環：" + (answerPatternOk?"PASS":"FAIL（"+answerStats.filter(stat=>!stat.nonPatterned).map(stat=>"第 "+stat.week+" 週：連續 "+stat.maxRun+"、"+stat.worstPeriod.period+" 題週期 "+Math.round(stat.worstPeriod.ratio*100)+"%").join("；")+"）"),
+    "應用題題幹皆可見：" + (visibleApplicationStemOk?"PASS":"FAIL"),
+    "假圖形／直接列式：" + directEquationDiagramCount,
+    "第 10 週錯置題已替換：" + (w10ReplacementOk?"PASS":"FAIL"),
     "第 8 週 70 題與 50/12/8：" + (w8StructureOk?"PASS":"FAIL"),
     "第 8 週題目頁不外露列式：" + (w8NoExposedMath?"PASS":"FAIL"),
     "第 9 週 12 中等應用 + 8 進階應用：" + (w9DifficultyOk?"PASS":"FAIL"),
