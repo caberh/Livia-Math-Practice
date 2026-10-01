@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Livia Math Practice｜36 週私中數學練習</title>
+<title>Livia Math Practice｜私中數學練習</title>
 <link rel="icon" href="data:,">
 <style>
 :root{
@@ -12,9 +12,9 @@
   --ink:#18312d;
   --muted:#687873;
   --line:#dcded7;
-  --accent:#176b5b;
-  --accent-dark:#124a41;
-  --accent2:#dff0eb;
+  --accent:#227767;
+  --accent-dark:#19594e;
+  --accent2:#e5f3ee;
   --stage2:#d97835;
   --stage2-soft:#fff0e4;
   --cream:#fff7df;
@@ -39,7 +39,7 @@ body{
   position:relative;
   overflow:hidden;
   color:#fff;
-  background:linear-gradient(135deg,#123f38 0%,#176b5b 64%,#268573 100%);
+  background:linear-gradient(135deg,#123f38 0%,#227767 64%,#268573 100%);
   border-radius:30px;
   box-shadow:0 22px 55px rgba(18,74,65,.2);
   padding:38px;
@@ -391,38 +391,32 @@ body:has(.selection-dock:not([hidden])){padding-bottom:92px}
   .option{border:1px solid #999}
 }
 .question[data-id^="w11-"] .explanation{overflow-wrap:anywhere;}
+
+/* V0.81: presentation only; question data and storage are unchanged. */
+.wrap{max-width:1080px;padding:20px 24px}
+.hero.compact-header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 22px;margin:0 0 18px;border-radius:18px;box-shadow:none;background:var(--accent-dark);overflow:visible}
+.compact-header::after{display:none}.compact-header h1{font-size:27px;line-height:1.2;margin:0 0 4px;letter-spacing:-.02em}.compact-header .subtitle{font-size:14px;margin:0}.compact-header .copyright{position:static;flex-shrink:0;background:transparent;border:0;color:#d5eae5;padding:0;font-size:11px;backdrop-filter:none}
+.setup-layout{display:block}.setup-sidebar{position:static}.settings-card{margin-top:0;padding:22px}.settings-card .section-heading{margin-bottom:16px}.step-number{display:none}.section-heading h2{font-size:21px}.section-heading p{font-size:13px}.settings-card .simple-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.simple-box{padding:12px;border-radius:14px}.pill{padding:6px 9px;margin:5px 4px 0 0;font-size:14px}.settings-card .generate-row{flex-direction:row;align-items:center;gap:12px}.settings-card .generate-button{width:auto;min-width:150px}.generate-copy{font-size:13px}
+.week-picker{margin:0 0 16px;border:1px solid var(--line);border-radius:14px;background:#faf9f5;min-width:0}.week-picker>summary{padding:12px 14px;cursor:pointer;font-weight:800}.week-picker>summary span{display:inline;font-weight:500;color:var(--muted);font-size:13px}.week-picker>section.card{border:0;box-shadow:none;padding:16px;margin:0;background:transparent}.phase-switch{grid-template-columns:repeat(3,minmax(0,1fr));border-radius:14px}.phase-tab{padding:10px;border-radius:10px}.chapter-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.chapter-card{min-height:112px;padding:12px;border-radius:14px}.chapter-title{font-size:15px;min-height:0}.chapter-actions button{font-size:12px;padding:7px 10px}.chapter-actions{gap:0}.selection-count{font-size:12px;padding:5px 8px}.selection-dock{display:none!important}body:has(.selection-dock:not([hidden])){padding-bottom:0}
+.advanced,.selfcheck,.bank-info,.parent-tools{box-shadow:none!important;border-radius:14px!important;padding:14px 16px!important;margin:12px 0!important;background:var(--paper);border:1px solid var(--line)}.advanced summary,.selfcheck summary,.bank-info summary,.parent-tools summary{cursor:pointer;font-size:14px}.setup-sidebar .advanced-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:12px}.parent-tools .advanced-box{margin-top:12px}.parent-tools .selfcheck{margin-bottom:0!important}.bank-information .hero-grid{grid-template-columns:1fr;gap:12px;margin-top:12px}.bank-information .eyebrow{display:none}.bank-information h2{font-size:17px;margin:0 0 8px}.bank-information .subtitle{font-size:14px;color:var(--muted)}.bank-information .hero-tags{margin-top:12px}.bank-information .hero-tag{color:var(--ink);background:#f3f6f2;border:1px solid var(--line);font-size:12px;padding:5px 8px}.bank-information .progress-panel{background:#eef5f1;color:var(--ink);border-color:var(--line);padding:14px;border-radius:12px}.bank-information .progress-kicker,.bank-information .progress-value span,.bank-information .phase-mini span{color:var(--muted)}.bank-information .progress-value strong{font-size:24px}.bank-information .progress-track{background:#d8e4df;margin:12px 0}.bank-information .phase-mini{background:#fff}.bank-information .progress-fill{transition:none}
+.quizbar{position:static;display:flex;flex-wrap:wrap;gap:3px;padding:10px;margin:0 0 12px;white-space:normal;border-radius:14px}.quizbar button{padding:8px 11px;font-size:13px}.quizbar #score{flex:1 0 100%;margin:4px 0;font-size:14px}.question{padding:22px;border-radius:18px}.qtext,.math,.option,.explanation,.qmeta{overflow-wrap:anywhere}.q-head{flex-wrap:wrap}.options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.option{min-width:0;white-space:normal;line-height:1.65}.options.long-options{grid-template-columns:1fr}.question .math{max-width:100%;overflow-x:auto}.resume-button[hidden]{display:none}.footer{font-size:12px;padding:12px}
+@media(max-width:700px){.settings-card .simple-grid{grid-template-columns:1fr}.chapter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.setup-sidebar .advanced-grid{grid-template-columns:1fr}.phase-switch{grid-template-columns:1fr}.settings-card .generate-row{flex-direction:column;align-items:stretch}.settings-card .generate-button{width:100%}}
+@media(max-width:440px){.wrap{padding:12px}.hero.compact-header{padding:14px 16px;flex-wrap:wrap;gap:8px;margin-bottom:12px}.compact-header h1{font-size:24px;max-width:none}.compact-header .copyright{width:100%;font-size:10px}.settings-card,.question{padding:16px}.chapter-grid{grid-template-columns:1fr}.week-picker>summary span{display:block;margin-top:4px}.week-picker>section.card{padding:12px}.options{grid-template-columns:1fr}.quizbar{margin:0 0 12px;padding:8px}.question .tag{font-size:11px}.phase-mini-grid{grid-template-columns:1fr}}
+@media print{.compact-header,.bank-info,.parent-tools{display:none!important}}
+
+
+/* V0.81 color refinement */
+.pill:hover{border-color:#a7c3ba;background:#f5faf7}.chapter-card:not(.empty-chapter):hover{border-color:#a0c3b7}.option:not(:disabled):hover{border-color:#94bcae;background:#f5faf7}
+
+/* V0.81 independent exam UI */
+[hidden]{display:none!important}.exam-tabs{display:flex;flex-wrap:wrap;gap:4px;margin:0 0 12px}.exam-tabs button{transition:none}.exam-tabs button[aria-pressed="true"]{background:var(--accent);color:white}.exam-setup{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}.exam-setup h3{margin:0}.exam-setup p{font-size:14px}.exam-setup input{width:85px;padding:8px;border:1px solid var(--line);border-radius:9px;font:inherit}.exam-settings>.simple-box:nth-child(-n+2){display:none}.exam-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:12px;margin:12px 0}.exam-toolbar strong{font-variant-numeric:tabular-nums;font-size:20px}.exam-toolbar #examProgress{flex:1;font-size:14px}.exam-option.chosen:not(.correct):not(.wrong){background:var(--accent2);border:2px solid var(--accent);color:var(--ink)}#examResult{scroll-margin-top:12px}#examScope{overflow-wrap:anywhere}#examQuestions .question .options .option:disabled{opacity:1}.exam-toolbar button{font-size:14px;padding:8px 12px}@media(max-width:440px){.exam-toolbar #examProgress{flex:1 0 100%}.exam-toolbar{gap:3px}.exam-setup #startExam{display:block;width:100%;margin:10px 0}.exam-tabs button{flex:1;font-size:13px;padding:9px}}
 </style>
 </head>
 <body>
 
-<div class="copyright">V0.78 © Capt. Caber</div>
+<div class="copyright">V0.81 © Capt. Caber</div>
 <div class="wrap">
-  <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <div class="eyebrow">Livia Math Practice · 六年級私中班</div>
-        <h1>36 週數學練習計畫</h1>
-        <p class="subtitle">依每週課程進度練習；第1–24週已精選；第24週著重圖形與方向去重、分類排除及變動基準。</p>
-        <div class="hero-tags">
-          <span class="hero-tag" id="bankSummary">讀取題庫中</span>
-          <span class="hero-tag">第1–24週：精選題庫｜第25–36週：規劃中</span>
-          <span class="hero-tag">10 / 20 / 30 / 40 題</span>
-          <span class="hero-tag">更新 <span id="updateDate"></span></span>
-        </div>
-      </div>
-      <div class="progress-panel" aria-label="題庫建置進度">
-        <div class="progress-kicker">題庫建置進度</div>
-        <div class="progress-value"><strong id="progressLastWeek">0</strong><span>／36 週 · <span id="progressTotalQuestions">0</span> 題</span></div>
-        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-        <div class="phase-mini-grid">
-          <div class="phase-mini"><b>第一階段 · 1–18 週</b><span id="phase1Built">0 / 18 週已建置</span></div>
-          <div class="phase-mini"><b>第二階段 · 19–36 週</b><span id="phase2Built">0 / 18 週已建置</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <main id="setupPage" class="page active">
+  <header class="hero compact-header"><div><h1>Livia Math Practice</h1><p class="subtitle">私中數學練習</p></div></header>  <main id="setupPage" class="page active">
     <div class="setup-layout">
     <div class="chapter-column">
     <section class="card">
@@ -470,7 +464,7 @@ body:has(.selection-dock:not([hidden])){padding-bottom:92px}
       <p id="setupNotice" class="setup-notice" role="status"></p>
       <div class="generate-row">
         <div class="generate-copy">題目會依勾選週次與設定隨機組成，作答後立即顯示解析。</div>
-        <button class="generate-button" id="generateButton" onclick="generateQuiz()" disabled>產生本次試題</button>
+        <button class="generate-button" id="generateButton" onclick="generateQuiz()" disabled>開始練習</button>
       </div>
     </section>
 
@@ -509,6 +503,32 @@ body:has(.selection-dock:not([hidden])){padding-bottom:92px}
     </details>
     </aside>
     </div>
+    <details class="bank-info"><summary>課程進度與使用說明</summary>  <section class="bank-information">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Livia Math Practice · 六年級私中班</div>
+        <h2>課程與題庫資訊</h2>
+        <p class="subtitle">依每週課程進度練習；第1–24週已精選；第24週著重圖形與方向去重、分類排除及變動基準。</p>
+        <div class="hero-tags">
+          <span class="hero-tag" id="bankSummary">讀取題庫中</span>
+          <span class="hero-tag">第1–24週：精選題庫｜第25–36週：規劃中</span>
+          <span class="hero-tag">10 / 20 / 30 / 40 題</span>
+          <span class="hero-tag">更新 <span id="updateDate"></span></span>
+        </div>
+      </div>
+      <div class="progress-panel" aria-label="題庫建置進度">
+        <div class="progress-kicker">題庫建置進度</div>
+        <div class="progress-value"><strong id="progressLastWeek">0</strong><span>／36 週 · <span id="progressTotalQuestions">0</span> 題</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="phase-mini-grid">
+          <div class="phase-mini"><b>第一階段 · 1–18 週</b><span id="phase1Built">0 / 18 週已建置</span></div>
+          <div class="phase-mini"><b>第二階段 · 19–36 週</b><span id="phase2Built">0 / 18 週已建置</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</details>
   </main>
 
   <div class="selection-dock" id="selectionDock" hidden aria-live="polite">
@@ -533,7 +553,7 @@ body:has(.selection-dock:not([hidden])){padding-bottom:92px}
     <div id="quizContainer"></div>
   </main>
 
-  <div class="footer">© Capt. Caber｜Livia Math Practice｜index.html</div>
+  <div class="footer">© Capt. Caber｜Livia Math Practice</div>
 </div>
 
 <script>
@@ -4729,6 +4749,106 @@ function runSelfCheck(){
   ].join("\n");
 }
 runSelfCheck();
+</script>
+
+<script>
+// V0.81 presentation adapter: retain all existing question-generation scripts.
+(()=>{
+ const header=document.querySelector('.compact-header');header.appendChild(document.querySelector('.copyright'));
+ const sidebar=document.querySelector('.setup-sidebar'),settings=document.querySelector('.settings-card');
+ const chapterSection=document.querySelector('.chapter-column section');
+ const picker=document.createElement('details');picker.className='week-picker';picker.id='weekPicker';
+ const summary=document.createElement('summary');summary.innerHTML='練習週次 <span id="selectedWeekSummary">尚未選擇</span>';picker.append(summary,chapterSection);
+ settings.querySelector('.section-heading').after(picker);document.querySelector('.chapter-column').remove();
+ settings.querySelector('h2').textContent='今天練什麼？';settings.querySelector('.section-heading p').textContent='選擇週次、題數與難度，準備好就開始。';
+ const adv=sidebar.querySelector('details.advanced');adv.querySelector('summary').innerHTML='<strong>更多篩選</strong>（題型與圖形）';
+ const difficulty=adv.querySelector('input[name="difficulty"]').closest('.advanced-box');difficulty.className='simple-box';settings.querySelector('.simple-grid').append(difficulty);
+ const tools=document.createElement('details');tools.className='parent-tools';tools.id='parentTools';tools.innerHTML='<summary><strong>家長工具</strong>（答案檢查與Self Check）</summary>';
+ const parentBox=document.getElementById('parentReview').closest('.advanced-box');tools.append(parentBox,sidebar.querySelector('details.selfcheck'));sidebar.append(tools);
+ const resume=document.createElement('button');resume.type='button';resume.className='secondary resume-button';resume.id='resumeButton';resume.textContent='繼續本次作答';resume.hidden=true;settings.querySelector('.generate-row').append(resume);
+ function selectionSummary(){const chosen=chapters.filter(c=>selectedChapterIds.has(c.id));document.getElementById('selectedWeekSummary').textContent=chosen.length?chosen.map(c=>'第'+c.week+'週・'+c.title).join('、'):'尚未選擇，點此展開課程清單';resume.hidden=!currentQuestions.length;}
+ const originalSelection=updateSelectionCount;updateSelectionCount=function(){originalSelection();selectionSummary()};
+ const originalRender=renderQuiz;renderQuiz=function(selected){originalRender(selected);document.querySelectorAll('#quizContainer .question').forEach(sec=>{const q=currentQuestions.find(q=>q.id===sec.dataset.id);sec.querySelector('.options').classList.toggle('long-options',Object.values(q.options).some(v=>String(v).length>24));});};
+ const originalGenerate=generateQuiz;generateQuiz=function(){originalGenerate();if(document.getElementById('quizPage').classList.contains('active')){picker.open=false;adv.open=false;tools.open=false;selectionSummary();}};
+ resume.addEventListener('click',()=>{document.getElementById('setupPage').classList.remove('active');document.getElementById('quizPage').classList.add('active');document.getElementById('selectionDock').hidden=true;scrollTo(0,0)});
+ selectionSummary();
+})();
+</script>
+
+<script>
+// V0.81: independent exam session; original practice state and bank stay intact.
+(()=>{
+ const KEY='liviaMathMockExamV1',DURATION=60*60*1000;
+ let session=null,timer=null;
+ const settings=document.querySelector('.settings-card');
+ const tabs=document.createElement('div');tabs.className='exam-tabs';tabs.innerHTML='<button type="button" class="secondary" id="dailyTab" aria-pressed="true">日常練習</button><button type="button" class="secondary" id="examTab" aria-pressed="false">60分鐘模擬考</button>';
+ settings.querySelector('.section-heading').after(tabs);
+ const panel=document.createElement('section');panel.id='examSetup';panel.hidden=true;panel.className='exam-setup';
+ panel.innerHTML='<h3>60分鐘模擬考</h3><p>使用既有選擇題練習配速；題型與難度不等同真實考卷。沿用上方週次、難度及更多篩選，考試中不提供提示或答案。</p><label for="examCount">考試題數</label> <input id="examCount" type="number" min="1" max="725" step="1" value="30"><p id="examPreview" role="status"></p><button id="startExam" type="button">開始考試</button>';
+ settings.append(panel);
+ const page=document.createElement('main');page.id='examPage';page.className='page';page.innerHTML='<div class="exam-toolbar"><strong id="examClock" aria-label="剩餘時間">60:00</strong><span id="examProgress" role="status"></span><button id="submitExam" type="button">交卷</button><button id="abandonExam" type="button" class="secondary">放棄考試</button><button id="examReturn" type="button" class="secondary" hidden>返回設定</button><button id="examAgain" type="button" class="secondary" hidden>再考一次</button></div><div id="examScope" class="qmeta"></div><section id="examResult" class="card" hidden></section><div id="examQuestions"></div>';
+ document.querySelector('.footer').before(page);
+ function examPool(){return applyFilters(questionBank.filter(q=>selectedChapterIds.has(q.chapterId)))}
+ function scopeText(ids){return ids.map(id=>{const c=chapters.find(c=>c.id===id);return c?'第'+c.week+'週 '+c.title:''}).filter(Boolean).join('、')}
+ function preview(){const pool=examPool(),count=Number($('examCount').value),valid=Number.isInteger(count)&&count>=1&&count<=725;
+ $('examPreview').textContent='範圍：'+(scopeText([...selectedChapterIds])||'尚未選擇週次')+'；時間60分鐘；要求'+(valid?count:'有效題數')+'題；目前可用'+pool.length+'題。'+(valid&&pool.length<count?'題數不足，請調低題數或放寬範圍／篩選。':'');
+ $('startExam').disabled=!valid||!pool.length||pool.length<count;
+ }
+ function selectTab(exam){panel.hidden=!exam;settings.querySelector('.generate-row').hidden=exam;settings.querySelector('.simple-grid').classList.toggle('exam-settings',exam);document.querySelector('#parentTools').hidden=exam;$('examTab').setAttribute('aria-pressed',String(exam));$('dailyTab').setAttribute('aria-pressed',String(!exam));preview();}
+ $('examTab').onclick=()=>selectTab(true);$('dailyTab').onclick=()=>selectTab(false);
+ document.addEventListener('change',preview);$('examCount').addEventListener('input',preview);
+ const selection=updateSelectionCount;updateSelectionCount=function(){selection();preview()};
+ function save(){try{localStorage.setItem(KEY,JSON.stringify(session));return true}catch(e){return false}}
+ function showExam(){ $('setupPage').classList.remove('active');$('quizPage').classList.remove('active');page.classList.add('active');$('selectionDock').hidden=true;scrollTo(0,0); }
+ function displayTime(ms){const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+ function tick(){if(!session)return;const active=session.status==='active';$('examClock').textContent=active?'剩餘 '+displayTime(session.deadline-Date.now()):'已交卷';if(active&&Date.now()>=session.deadline)finish(true);}
+ function progress(){const n=Object.keys(session.answers).length;$('examProgress').textContent='已答 '+n+' / '+session.questions.length+'｜未答 '+(session.questions.length-n);}
+ function render(){
+ const finished=session.status==='finished';
+ $('submitExam').hidden=finished;$('abandonExam').hidden=finished;$('examReturn').hidden=!finished;$('examAgain').hidden=!finished;
+ $('examScope').textContent='範圍：'+scopeText(session.scope)+'｜'+session.questions.length+'題｜60分鐘';
+ $('examQuestions').innerHTML='';
+ session.questions.forEach((q,i)=>{
+ const sec=document.createElement('section');sec.className='question';sec.dataset.id=q.id;
+ const ch=chapters.find(c=>c.id===q.chapterId),picked=session.answers[q.id];
+ const options=Object.entries(q.options).map(([k,v])=>'<button type="button" class="option exam-option'+(picked===k?' chosen':'')+(finished&&k===q.answer?' correct':'')+(finished&&picked===k&&k!==q.answer?' wrong':'')+'" data-choice="'+k+'" aria-pressed="'+(picked===k)+'" '+(finished?'disabled':'')+'>'+k+'. '+formatMath(v)+'</button>').join('');
+ sec.innerHTML='<div class="q-head"><div class="q-id">'+displayId(q)+'</div><div class="qmeta">第'+(ch?.week||'')+'週｜'+(ch?.title||'')+'</div></div><div class="qtext">'+(i+1)+'. '+formatMath(q.text)+'</div>'+renderDiagram(q)+(shouldShowQuestionMath(q)?'<div class="math">'+formatMath(q.math)+'</div>':'')+'<div class="options'+(Object.values(q.options).some(v=>String(v).length>24)?' long-options':'')+'">'+options+'</div>';
+ if(finished){const label=!picked?'未作答':picked===q.answer?'答對':'答錯';sec.insertAdjacentHTML('beforeend','<div class="result '+(picked===q.answer?'good':'bad')+'">'+label+'；正確答案：'+q.answer+'</div><details class="hint"><summary>提示</summary>'+formatMath(q.hint)+'</details><div class="explanation show">'+formatExplanation(q)+'</div>');}
+ sec.querySelectorAll('.exam-option').forEach(btn=>btn.onclick=()=>{
+ if(session.status!=='active')return;
+ if(Date.now()>=session.deadline){finish(true);return;}
+ session.answers[q.id]=btn.dataset.choice;
+ sec.querySelectorAll('.exam-option').forEach(o=>{const chosen=o===btn;o.classList.toggle('chosen',chosen);o.setAttribute('aria-pressed',String(chosen))});progress();
+ if(!save())$('examProgress').textContent+='｜暫存失敗，請勿重新整理';
+ });$('examQuestions').append(sec);
+ });
+ $('examResult').hidden=!finished;
+ if(finished){const r=session.result;$('examResult').innerHTML='<h2>考試結果：'+r.score+'分</h2><p>答對 '+r.correct+' / '+r.total+'題｜答錯 '+r.wrong+'題｜未答 '+r.unanswered+'題</p><p>作答時間 '+displayTime(session.finishedAt-session.startedAt)+'；'+(session.timedOut?'時間到自動交卷':'提前交卷')+'。每題等分，分數四捨五入至小數一位。</p>';}progress();tick();
+ }
+ function finish(timedOut){if(!session||session.status!=='active')return;
+ const now=Date.now();session.status='finished';session.timedOut=timedOut;session.finishedAt=Math.min(now,session.deadline);
+ const total=session.questions.length,correct=session.questions.filter(q=>session.answers[q.id]===q.answer).length,unanswered=session.questions.filter(q=>!session.answers[q.id]).length;
+ session.result={total,correct,wrong:total-correct-unanswered,unanswered,score:Math.round(correct/total*1000)/10};save();clearInterval(timer);timer=null;
+ const correctIds=new Set(session.questions.filter(q=>session.answers[q.id]===q.answer).map(q=>q.id));setWrongIds([...getWrongIds().filter(id=>!correctIds.has(id)),...session.questions.filter(q=>!correctIds.has(q.id)).map(q=>q.id)]);
+ render();$('examResult').scrollIntoView({block:'start'});
+ }
+ $('startExam').onclick=()=>{
+ preview();if($('startExam').disabled)return;
+ const questions=chooseQuestions(examPool(),String(Number($('examCount').value)));const startedAt=Date.now();
+ session={schema:1,status:'active',scope:[...selectedChapterIds],questions,answers:{},startedAt,deadline:startedAt+DURATION};
+ if(!save()){session=null;notice('無法保存模擬考暫存。請允許此網頁儲存資料後再開始。',true);return;}
+ showExam();render();clearInterval(timer);timer=setInterval(tick,1000);
+ };
+ $('submitExam').onclick=()=>{if(session?.status!=='active')return;if(Date.now()>=session.deadline){finish(true);return;}const missing=session.questions.length-Object.keys(session.answers).length;if(confirm('還有'+missing+'題未作答。確定交卷？'))finish(Date.now()>=session.deadline);};
+ function returnSetup(){page.classList.remove('active');$('setupPage').classList.add('active');updateSelectionCount();scrollTo(0,0);}
+ $('abandonExam').onclick=()=>{if(session?.status!=='active')return;if(Date.now()>=session.deadline){finish(true);return;}if(!confirm('確定放棄本次考試？本次答案不會加入錯題紀錄。'))return;clearInterval(timer);timer=null;session=null;try{localStorage.removeItem(KEY)}catch(e){}returnSetup();};
+ $('examReturn').onclick=returnSetup;$('examAgain').onclick=()=>{returnSetup();selectTab(true)};
+ document.addEventListener('visibilitychange',tick);window.addEventListener('focus',tick);window.addEventListener('pageshow',tick);
+ preview();
+ try{const saved=JSON.parse(localStorage.getItem(KEY)||'null');if(saved){const known=new Set(questionBank.map(q=>q.id));const valid=saved.schema===1&&['active','finished'].includes(saved.status)&&Array.isArray(saved.scope)&&Array.isArray(saved.questions)&&saved.questions.length>0&&saved.questions.length<=725&&new Set(saved.questions.map(q=>q.id)).size===saved.questions.length&&saved.questions.every(q=>known.has(q.id)&&q.options&&q.options[q.answer]&&q.text&&q.hint&&q.explanation)&&saved.answers&&typeof saved.answers==='object'&&Object.entries(saved.answers).every(([id,a])=>saved.questions.some(q=>q.id===id&&q.options[a]))&&Number.isFinite(saved.startedAt)&&saved.deadline===saved.startedAt+DURATION&&(saved.status==='active'||(saved.result&&Number.isFinite(saved.finishedAt)));
+ if(valid){session=saved;selectedChapterIds.clear();saved.scope.forEach(id=>{if(questionBank.some(q=>q.chapterId===id))selectedChapterIds.add(id)});renderChapters();showExam();if(session.status==='active'&&Date.now()>=session.deadline)finish(true);else render();if(session.status==='active')timer=setInterval(tick,1000);}else notice('上次模擬考暫存無法恢復，請重新開始。');}}catch(e){notice('無法讀取模擬考暫存，請確認瀏覽器允許儲存資料。');}
+})();
+
 </script>
 </body>
 </html>
